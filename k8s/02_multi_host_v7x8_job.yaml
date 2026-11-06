@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tabicl-v7x8-hl
+  namespace: default
+spec:
+  clusterIP: None
+  selector:
+    app: tabicl-v7x8-multihost
+  ports:
+    - name: slicebuilder
+      port: 8471
+    - name: c10d
+      port: 29500
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tabicl-phase2-multihost-v7x8
+  namespace: default
+spec:
+  completionMode: Indexed
+  completions: 2
+  parallelism: 2
+  backoffLimit: 0
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+      labels:
+        app: tabicl-v7x8-multihost
+    spec:
+      subdomain: tabicl-v7x8-hl
+      restartPolicy: Never
+      nodeSelector:
+        cloud.google.com/tpu-v7x-worker-node: tpu7x
+        cloud.google.com/tpu-v7x-worker-node: 2x2x2
+      tolerations:
+        - key: google.com/tpu
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: worker
+          image: us-central1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/torchtpu/tabicl-torchtpu:v0.2.0-tabicl2.2.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PJRT_DEVICE
+              value: "TPU"
+            - name: TORCH_TPU_TOPOLOGY
+              value: "2,2,2,2"
+            - name: HF_HOME
+              value: "/workspace/hf_cache"
+          command:
+            - /bin/bash
+            - -lc
+            - |
+              set -euo pipefail
+              mkdir -p /workspace/results /tmp/torchtpu_compile_cache
+              torchrun \
+                --nnodes=2 \
+                --nproc_per_node=8 \
+                --node_rank="${JOB_COMPLETION_INDEX}" \
+                --rdzv_backend=c10d \
+                --rdzv_endpoint=tabicl-phase2-multihost-v7x8-0.tabicl-v7x8-hl:29500 \
+                /workspace/scripts/phase2_bench_multi_host.py \
+                --output-dir /workspace/results
+          resources:
+            requests:
+              google.com/tpu: "4"
+            limits:
+              google.com/tpu: "4"
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 256Gi

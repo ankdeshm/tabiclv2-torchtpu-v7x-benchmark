@@ -1,0 +1,313 @@
+[2026-11-05T19:42:22.360984+00:00][job_idx=0] Initial GKE TPU env keys: {"PJRT_DEVICE": "TPU", "TPU_ACCELERATOR_TYPE": "tpu7x-16", "TPU_CHIPS_PER_HOST_BOUNDS": "2,2,1", "TPU_HOST_BOUNDS": "1,1,2", "TPU_LOG_DIR": "/tmp/tpu_logs/smoke", "TPU_PROCESS_ADDRESSES": "tabicl-phase0-smoke-worker-0-0.tabicl-phase0-smoke:8471,tabicl-phase0-smoke-worker-0-1.tabicl-phase0-smoke:8471", "TPU_PROCESS_PORT": "8471", "TPU_RUNTIME_METRICS_PORTS": "8431,8432,8433,8434,8435,8436,8437,8438", "TPU_SKIP_MDS_QUERY": "true", "TPU_TOPOLOGY": "2x2x2", "TPU_TOPOLOGY_ALT": "false", "TPU_TOPOLOGY_WRAP": "false,false,false", "TPU_WORKER_HOSTNAMES": "tabicl-phase0-smoke-worker-0-0.tabicl-phase0-smoke,tabicl-phase0-smoke-worker-0-1.tabicl-phase0-smoke", "TPU_WORKER_ID": "0"}
+[2026-11-05T19:42:22.891995+00:00][job_idx=0] Running Stage A (pure single-host device inspection & 4096x4096 bf16 matmul)...
+[2026-11-05T19:42:32.191067+00:00][job_idx=0] Stage A rc=0
+STDOUT:
+SINGLE_HOST_MATMUL_SUM=9837350.0
+STAGE_A_OK {"timestamp_utc": "2026-11-05T19:42:28.740572+00:00", "hostname": "tpu-v7x-worker-node", "ip": "10.0.0.10", "python": "3.12.16", "torch_version": "2.15.0+cpu", "torch_tpu_version": "0.2.0", "libtpu_version": "0.0.50", "tabicl_version": "2.2.0", "tabicl_git_sha": "d83091b845a8c5f7c087bd54964f755a9e560f45", "physical_vfio_chips_on_host": 8, "vfio_devices": ["/dev/vfio/0", "/dev/vfio/1", "/dev/vfio/2", "/dev/vfio/3", "/dev/vfio/4", "/dev/vfio/5", "/dev/vfio/6", "/dev/vfio/7"], "devices_per_physical_chip": 2, "torch_accelerator_device_count_in_single_proc": 8, "torch_accelerator_current_device_index": 0, "max_memory_allocated_bytes_after_4096_matmul": 169013760, "single_host_4096_bf16_matmul_sum": 9837350.0}
+
+STDERR:
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907744.686823      13 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793907745.485969      13 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907745.489124      13 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793907745.492674      13 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793907747.860275      13 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793907747.860304      13 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793907747.896920     718 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907747.896953     718 tier2_compilation_cache.cc:80] Tier-2 compilation cache is disabled for world size 1.
+I0000 00:00:1793907747.896956     718 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907749.776708      13 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907749.776729      13 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=5
+num_cache_hits=0 {0.0%}
+num_compilations=5
+peak_compilation_memory_bytes=unknown
+
+
+[2026-11-05T19:42:32.191577+00:00][job_idx=0] Stage A complete: physical_chips=8, devices_per_chip=2, pjrt_addressable_devices_per_host=8
+[2026-11-05T19:42:35.195781+00:00][job_idx=0] Entering pre-Stage-B TCP barrier against 10.0.0.10:29539 with {'job_idx': 0, 'tpu_worker_id': 0, 'ip': '10.0.0.10', 'hostname': 'tpu-v7x-worker-node', 'addressable_devices': 8}...
+[2026-11-05T19:42:35.387244+00:00][job_idx=0] Barrier complete: ordered_hosts=['10.0.0.10', '10.0.0.10'], my_node_rank=0, slicebuilder_count=16
+[2026-11-05T19:42:35.387533+00:00][job_idx=0] Running Stage B multi-host tpu_dist all_reduce: torchrun --nnodes=2 --nproc_per_node=8 --rdzv_backend=static --rdzv_endpoint=10.0.0.10:29540 --node_rank=0 /tmp/phase0_host0/stage_b_worker.py
+[2026-11-05T19:42:49.394759+00:00][job_idx=0] Stage B rc=0
+STDOUT:
+[RANK 05/16 local=5 host=tpu-v7x-worker-node] matmul_sum=9679178.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 03/16 local=3 host=tpu-v7x-worker-node] matmul_sum=8794754.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 07/16 local=7 host=tpu-v7x-worker-node] matmul_sum=10404764.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 00/16 local=0 host=tpu-v7x-worker-node] matmul_sum=9957530.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 02/16 local=2 host=tpu-v7x-worker-node] matmul_sum=10660657.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 01/16 local=1 host=tpu-v7x-worker-node] matmul_sum=9462479.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 04/16 local=4 host=tpu-v7x-worker-node] matmul_sum=10418253.0000 all_reduce_sum=136.0 (expected=136.0) PASS
+[RANK 06/16 local=6 host=tpu-v7x-worker-node] matmul_sum=9452207.0000 all_reduce_sum=136.0 (expected=136.0) PASS
++-----------+
+| Anomalies |
++-----------+
+---------
+Anomalies
+---------
++-----------+
+| Anomalies |
++-----------+
+---------
+Anomalies
+---------
+
+STDERR:
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907757.055716    1247 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793907757.846231    1247 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907757.848623    1247 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+W1105 19:42:37.874000 1247 site-packages/torch/distributed/run.py:982] 
+W1105 19:42:37.874000 1247 site-packages/torch/distributed/run.py:982] *****************************************
+W1105 19:42:37.874000 1247 site-packages/torch/distributed/run.py:982] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1105 19:42:37.874000 1247 site-packages/torch/distributed/run.py:982] *****************************************
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+/usr/local/lib/python3.12/site-packages/torch_tpu/__init__.py:37: UserWarning: <TorchTpu/Performance/TcMalloc/> tcmalloc is not loaded; TorchTPU host performance may be degraded due to glibc ptmalloc contention. Preload libtcmalloc before starting Python (e.g. LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4), or set PYTHONWARNINGS="ignore:<TorchTpu/Performance/TcMalloc/" to suppress this warning.
+  _tcmalloc_check.check_tcmalloc()
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.585988    1317 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793907759.585990    1315 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.589859    1318 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.604563    1319 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.691812    1312 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.703085    1313 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.712286    1316 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793907759.737731    1314 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793907760.377204    1318 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.379681    1318 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+[W1105 19:42:40.576928958 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.576944318 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.383089    1318 discovery.cc:125] DistributedWorkerConfiguration: 6 6 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8076 2,2,2,2
+I0000 00:00:1793907760.383123    1318 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793907760.431304    1317 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.431822    1315 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.433145    1319 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.433812    1317 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793907760.434299    1315 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793907760.436386    1319 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+[W1105 19:42:40.631126746 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.631140871 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.437284    1317 discovery.cc:125] DistributedWorkerConfiguration: 5 5 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8075 2,2,2,2
+I0000 00:00:1793907760.437313    1317 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+[W1105 19:42:40.631584406 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.631601730 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.437744    1315 discovery.cc:125] DistributedWorkerConfiguration: 3 3 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8073 2,2,2,2
+I0000 00:00:1793907760.437771    1315 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+[W1105 19:42:40.635962522 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.635978272 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.442121    1319 discovery.cc:125] DistributedWorkerConfiguration: 7 7 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8077 2,2,2,2
+I0000 00:00:1793907760.442175    1319 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793907760.530052    1312 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.881190    1312 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+[W1105 19:42:40.079801582 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.079815806 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.885959    1312 discovery.cc:125] DistributedWorkerConfiguration: 0 0 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8070 2,2,2,2
+I0000 00:00:1793907760.885993    1312 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793907760.900583    1313 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.902266    1316 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907760.903209    1313 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793907760.905001    1316 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+[W1105 19:42:40.101040755 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.101053206 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.907195    1313 discovery.cc:125] DistributedWorkerConfiguration: 1 1 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8071 2,2,2,2
+I0000 00:00:1793907760.907223    1313 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+[W1105 19:42:40.102747841 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:40.102764531 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907760.908906    1316 discovery.cc:125] DistributedWorkerConfiguration: 4 4 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8074 2,2,2,2
+I0000 00:00:1793907760.908935    1316 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793907761.315703    1314 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793907761.318982    1314 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+[W1105 19:42:41.517503479 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_SLICEBUILDER_ADDRESSES environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:41.517516813 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TOPOLOGY environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907761.323659    1314 discovery.cc:125] DistributedWorkerConfiguration: 2 2 16 10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077,10.0.0.10:8070,10.0.0.10:8071,10.0.0.10:8072,10.0.0.10:8073,10.0.0.10:8074,10.0.0.10:8075,10.0.0.10:8076,10.0.0.10:8077 8072 2,2,2,2
+I0000 00:00:1793907761.323690    1314 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793907764.706034    1319 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+[W1105 19:42:44.901286543 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907764.709200    1315 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+[W1105 19:42:44.904257437 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907764.711361    1313 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+I0000 00:00:1793907764.711944    1318 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+[W1105 19:42:44.906507990 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:44.906850063 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907764.713203    1317 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+I0000 00:00:1793907764.713919    1314 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+I0000 00:00:1793907764.714310    1316 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+[W1105 19:42:44.908186062 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:44.908725411 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[W1105 19:42:44.908980716 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907764.791888    1312 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+[W1105 19:42:44.986728286 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_DEVICES_PER_HOST environment variable is an experimental feature and may change or be removed without notice. (function operator())
+I0000 00:00:1793907764.793161    1312 process_group_tpu.cc:1269] AllGatherViaNodeLocalStore(world_topo:0:16): gathered 16 entries from 2 nodes in 1 ms
+I0000 00:00:1793907764.839595    4315 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.839617    4315 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.839625    4315 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.839648    7195 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.840254    4319 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.840277    4319 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.840287    4319 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.840314    7282 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.842267    4313 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.842290    4313 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.842298    4313 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.842383    7493 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.842902    4317 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.842920    4317 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.842928    4317 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.842940    4321 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.842958    4321 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.842965    4321 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.842961    7557 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.842983    7564 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.845858    4323 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.845879    4323 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.845887    4323 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.845908    7724 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.850599    4309 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.850619    4309 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.850627    4309 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.850656    7895 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907764.850829    4310 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: 
+I0000 00:00:1793907764.850843    4310 tier2_compilation_cache.cc:84] Tier-2 compilation cache is enabled with name 'default' for world size 16.
+I0000 00:00:1793907764.850851    4310 tier3_compilation_cache.cc:50] Backup compilation for tier-3 cache read is disabled as tier-3 cache is disabled.
+I0000 00:00:1793907764.850879    7900 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793907766.852924    1319 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.852954    1319 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.853510    1315 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.853543    1315 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.853751    1312 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.853784    1312 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.853796    1313 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.853802    1314 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.853821    1313 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.853828    1314 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.853934    1316 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.853963    1316 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.854294    1318 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.854320    1318 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+I0000 00:00:1793907766.854412    1317 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793907766.854442    1317 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=6
+num_cache_hits=0 {0.0%}
+num_compilations=6
+peak_compilation_memory_bytes=unknown
+
+

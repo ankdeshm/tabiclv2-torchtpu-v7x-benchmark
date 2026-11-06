@@ -1,0 +1,60 @@
+{
+  "job_completion_index": 1,
+  "tpu_worker_id": 1,
+  "gke_injected_tpu_env": {
+    "TPU_ACCELERATOR_TYPE": "tpu7x-16",
+    "TPU_HOST_BOUNDS": "1,1,2",
+    "TPU_TOPOLOGY_ALT": "false",
+    "TPU_TOPOLOGY_WRAP": "false,false,false",
+    "TPU_SKIP_MDS_QUERY": "true",
+    "TPU_TOPOLOGY": "2x2x2",
+    "TPU_CHIPS_PER_HOST_BOUNDS": "2,2,1",
+    "TPU_RUNTIME_METRICS_PORTS": "8431,8432,8433,8434,8435,8436,8437,8438",
+    "TPU_WORKER_HOSTNAMES": "tabicl-phase0-smoke-worker-0-0.tabicl-phase0-smoke,tabicl-phase0-smoke-worker-0-1.tabicl-phase0-smoke",
+    "TPU_PROCESS_PORT": "8471",
+    "TPU_WORKER_ID": "1",
+    "TPU_LOG_DIR": "/tmp/tpu_logs/smoke",
+    "PJRT_DEVICE": "TPU",
+    "TPU_PROCESS_ADDRESSES": "tabicl-phase0-smoke-worker-0-0.tabicl-phase0-smoke:8471,tabicl-phase0-smoke-worker-0-1.tabicl-phase0-smoke:8471"
+  },
+  "single_host": {
+    "timestamp_utc": "2026-11-05T19:42:28.871003+00:00",
+    "hostname": "tpu-v7x-worker-node",
+    "ip": "10.0.0.10",
+    "python": "3.12.16",
+    "torch_version": "2.15.0+cpu",
+    "torch_tpu_version": "0.2.0",
+    "libtpu_version": "0.0.50",
+    "tabicl_version": "2.2.0",
+    "tabicl_git_sha": "d83091b845a8c5f7c087bd54964f755a9e560f45",
+    "physical_vfio_chips_on_host": 8,
+    "vfio_devices": [
+      "/dev/vfio/0",
+      "/dev/vfio/1",
+      "/dev/vfio/2",
+      "/dev/vfio/3",
+      "/dev/vfio/4",
+      "/dev/vfio/5",
+      "/dev/vfio/6",
+      "/dev/vfio/7"
+    ],
+    "devices_per_physical_chip": 2,
+    "torch_accelerator_device_count_in_single_proc": 8,
+    "torch_accelerator_current_device_index": 0,
+    "max_memory_allocated_bytes_after_4096_matmul": 169013760,
+    "single_host_4096_bf16_matmul_sum": 9749907.0,
+    "pjrt_addressable_tensorcore_devices_on_host": 8
+  },
+  "multi_host_tpu_dist": {
+    "node_rank": 1,
+    "rank0_global": 8,
+    "world_size": 16,
+    "local_world_size": 8,
+    "backend": "tpu_dist",
+    "hostname": "tpu-v7x-worker-node",
+    "matmul_sum_rank": 9440146.0,
+    "all_reduce_got": 136.0,
+    "all_reduce_expected": 136.0,
+    "status": "PASS"
+  }
+}

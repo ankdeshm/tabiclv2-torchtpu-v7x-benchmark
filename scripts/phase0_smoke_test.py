@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 0.4 Smoke Test for TorchTPU 0.2.0 on GKE TPU7x (ank-tpu-v7x-8-pool-b, 2x2x2).
+"""Phase 0.4 Smoke Test for TorchTPU 0.2.0 on GKE TPU7x (tpu-v7x-8-nodepool, 2x2x2).
 
 Runs in two clean stages inside each JobSet pod (hostNetwork=True, 4 TPU chips/host):
   Stage A (Isolated Single-Host Process Inspection & BF16 Matmul):

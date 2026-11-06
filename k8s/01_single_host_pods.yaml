@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tabicl-host0
+  namespace: default
+  labels:
+    app: tabicl-tpu-worker
+    host-id: "0"
+    serving-active: "false"
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+spec:
+  serviceAccountName: default
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  restartPolicy: Always
+  nodeSelector:
+    cloud.google.com/gke-nodepool: tpu-v7x-8-nodepool
+    cloud.google.com/tpu-v7x-worker-node: tpu7x
+    cloud.google.com/tpu-v7x-worker-node: 2x2x2
+    kubernetes.io/hostname: tpu-v7x-worker-node
+  tolerations:
+  - key: "google.com/tpu"
+    operator: "Exists"
+    effect: "NoSchedule"
+  - key: "cloud.google.com/gke-queued"
+    operator: "Exists"
+    effect: "NoSchedule"
+  containers:
+  - name: worker
+    image: us-central1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/torchtpu/tabicl-torchtpu:v0.2.0-tabicl2.2.0
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/bash", "-lc", "mkdir -p /workspace/run /tmp/torchtpu_compile_cache && sleep infinity"]
+    ports:
+    - name: http
+      containerPort: 8000
+    env:
+    - name: PJRT_DEVICE
+      value: "TPU"
+    - name: HF_HOME
+      value: "/workspace/hf_cache"
+    resources:
+      requests:
+        google.com/tpu: "4"
+      limits:
+        google.com/tpu: "4"
+    volumeMounts:
+    - name: dshm
+      mountPath: /dev/shm
+  volumes:
+  - name: dshm
+    emptyDir:
+      medium: Memory
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tabicl-host1
+  namespace: default
+  labels:
+    app: tabicl-tpu-worker
+    host-id: "1"
+    serving-active: "false"
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+spec:
+  serviceAccountName: default
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  restartPolicy: Always
+  nodeSelector:
+    cloud.google.com/gke-nodepool: tpu-v7x-8-nodepool
+    cloud.google.com/tpu-v7x-worker-node: tpu7x
+    cloud.google.com/tpu-v7x-worker-node: 2x2x2
+    kubernetes.io/hostname: tpu-v7x-worker-node
+  tolerations:
+  - key: "google.com/tpu"
+    operator: "Exists"
+    effect: "NoSchedule"
+  - key: "cloud.google.com/gke-queued"
+    operator: "Exists"
+    effect: "NoSchedule"
+  containers:
+  - name: worker
+    image: us-central1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/torchtpu/tabicl-torchtpu:v0.2.0-tabicl2.2.0
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/bash", "-lc", "mkdir -p /workspace/run /tmp/torchtpu_compile_cache && sleep infinity"]
+    ports:
+    - name: http
+      containerPort: 8000
+    env:
+    - name: PJRT_DEVICE
+      value: "TPU"
+    - name: HF_HOME
+      value: "/workspace/hf_cache"
+    resources:
+      requests:
+        google.com/tpu: "4"
+      limits:
+        google.com/tpu: "4"
+    volumeMounts:
+    - name: dshm
+      mountPath: /dev/shm
+  volumes:
+  - name: dshm
+    emptyDir:
+      medium: Memory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tabicl-serving-svc
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: tabicl-tpu-worker
+    serving-active: "true"
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 8000

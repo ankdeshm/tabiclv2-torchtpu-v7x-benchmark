@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Single-Host PJRT Metadata Proxy + LD_PRELOAD Hook for TPU v7x (4 dual-core chips = 8 TensorCores/host).
 
-Allows single-host pods on a 2x2x2 GKE TPU v7x nodepool (`ank-tpu-v7x-8-pool-b`) to run:
+Allows single-host pods on a 2x2x2 GKE TPU v7x nodepool (`tpu-v7x-8-nodepool`) to run:
   - 1-process single-device TorchTPU (`torch.device("tpu")`)
   - 8-process full-host TorchTPU (`torchrun --nnodes=1 --nproc_per_node=8`, `backend="tpu_dist"`)
   - 8 independent FastAPI worker processes (1 process per TensorCore device via `TPU_VISIBLE_DEVICES` / `TORCH_TPU_*`)

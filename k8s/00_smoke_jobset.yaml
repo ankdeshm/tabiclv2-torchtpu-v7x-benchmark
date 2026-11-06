@@ -1,0 +1,69 @@
+apiVersion: jobset.x-k8s.io/v1alpha2
+kind: JobSet
+metadata:
+  name: tabicl-phase0-smoke
+  namespace: default
+spec:
+  network:
+    enableDNSHostnames: true
+    publishNotReadyAddresses: true
+  replicatedJobs:
+  - name: worker
+    replicas: 1
+    template:
+      spec:
+        parallelism: 2
+        completions: 2
+        completionMode: Indexed
+        backoffLimit: 1
+        template:
+          metadata:
+            labels:
+              app: tabicl-phase0-smoke
+            annotations:
+              cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+          spec:
+            serviceAccountName: default
+            hostNetwork: true
+            dnsPolicy: ClusterFirstWithHostNet
+            restartPolicy: Never
+            nodeSelector:
+              cloud.google.com/gke-nodepool: tpu-v7x-8-nodepool
+              cloud.google.com/tpu-v7x-worker-node: tpu7x
+              cloud.google.com/tpu-v7x-worker-node: 2x2x2
+            tolerations:
+            - key: "google.com/tpu"
+              operator: "Exists"
+              effect: "NoSchedule"
+            - key: "cloud.google.com/gke-queued"
+              operator: "Exists"
+              effect: "NoSchedule"
+            containers:
+            - name: smoke
+              image: us-central1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/torchtpu/tabicl-torchtpu:v0.2.0-tabicl2.2.0
+              imagePullPolicy: Always
+              command: ["python3", "/scripts/phase0_smoke_test.py"]
+              args:
+              - --bucket=YOUR_GCS_BUCKET
+              - --run-prefix=tabicl-tpu/20261105-1120
+              - --master-dns=tabicl-phase0-smoke-worker-0-0.tabicl-phase0-smoke.default.svc.cluster.local
+              env:
+              - name: PJRT_DEVICE
+                value: "TPU"
+              resources:
+                requests:
+                  google.com/tpu: "4"
+                limits:
+                  google.com/tpu: "4"
+              volumeMounts:
+              - name: smoke-script
+                mountPath: /scripts
+              - name: dshm
+                mountPath: /dev/shm
+            volumes:
+            - name: smoke-script
+              configMap:
+                name: tabicl-phase0-scripts
+            - name: dshm
+              emptyDir:
+                medium: Memory
