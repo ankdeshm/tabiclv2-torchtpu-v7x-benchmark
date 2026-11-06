@@ -218,8 +218,8 @@ class BucketedCompiledTabICL:
             if col_emb.affine:
                 weights = col_emb.ln_w(col_emb.out_w(src))
                 biases = col_emb.ln_b(col_emb.out_b(src))
-                return feat_chunk * weights + biases
-            return src
+                return (feat_chunk * weights + biases) + 0
+            return src + 0
 
         return _fn
 
@@ -243,13 +243,13 @@ class BucketedCompiledTabICL:
                 )
                 out_b, k_b, v_b = block.multihead_attn2(src, hidden, hidden, need_kv=True)
                 src = torch.where(skip_mask, torch.full_like(out_b, block.skip_value), out_b)
-                ks.append(k_b.to(cache_dtype))
-                vs.append(v_b.to(cache_dtype))
+                ks.append(k_b.to(cache_dtype) + 0)
+                vs.append(v_b.to(cache_dtype) + 0)
             if col_emb.affine:
                 weights = col_emb.ln_w(col_emb.out_w(src))
                 biases = col_emb.ln_b(col_emb.out_b(src))
                 src = feat_chunk * weights + biases
-            return (src, *ks, *vs)
+            return (src + 0, *ks, *vs)
 
         return _fn
 
@@ -258,7 +258,7 @@ class BucketedCompiledTabICL:
 
         def _fn(col_emb_tile: Tensor, d_vec: Tensor) -> Tensor:
             row_d = model._resolve_row_d(d_vec)
-            return model.row_interactor._train_forward(col_emb_tile, d=row_d)
+            return model.row_interactor._train_forward(col_emb_tile, d=row_d) + 0
 
         return _fn
 
@@ -276,7 +276,7 @@ class BucketedCompiledTabICL:
                 out = model.icl_predictor._icl_predictions(
                     reprs, y_train, train_size_override=train_sz
                 )
-            return out.float()
+            return out.float() + 0
 
         return _fn
 
@@ -297,8 +297,8 @@ class BucketedCompiledTabICL:
                         r_in, k_l, v_l = block(
                             q=r_in, train_size=train_sz, rope=icl.tf_icl.rope, need_kv=True
                         )
-                        icl_ks.append(k_l.to(cache_dtype))
-                        icl_vs.append(v_l.to(cache_dtype))
+                        icl_ks.append(k_l.to(cache_dtype) + 0)
+                        icl_vs.append(v_l.to(cache_dtype) + 0)
             else:
                 if icl.max_classes > 0:
                     ry = icl.y_encoder(y_train.float())
@@ -309,8 +309,8 @@ class BucketedCompiledTabICL:
                     r_in, k_l, v_l = block(
                         q=r_in, train_size=train_sz, rope=icl.tf_icl.rope, need_kv=True
                     )
-                    icl_ks.append(k_l.to(cache_dtype))
-                    icl_vs.append(v_l.to(cache_dtype))
+                    icl_ks.append(k_l.to(cache_dtype) + 0)
+                    icl_vs.append(v_l.to(cache_dtype) + 0)
             return (*icl_ks, *icl_vs)
 
         return _fn
@@ -344,8 +344,9 @@ class BucketedCompiledTabICL:
                 )
                 out_b, k_b, v_b = block.multihead_attn2(src, hidden, hidden, need_kv=True)
                 src = torch.where(skip_mask, torch.full_like(out_b, block.skip_value), out_b)
-                col_ks.append(k_b.to(cache_dtype))
-                col_vs.append(v_b.to(cache_dtype))
+                col_ks.append(k_b.to(cache_dtype) + 0)
+                vs_val = v_b.to(cache_dtype) + 0
+                col_vs.append(vs_val)
 
             if col_emb.affine:
                 weights = col_emb.ln_w(col_emb.out_w(src))
@@ -369,8 +370,8 @@ class BucketedCompiledTabICL:
                         r_in, k_l, v_l = block(
                             q=r_in, train_size=train_sz, rope=icl.tf_icl.rope, need_kv=True
                         )
-                        icl_ks.append(k_l.to(cache_dtype))
-                        icl_vs.append(v_l.to(cache_dtype))
+                        icl_ks.append(k_l.to(cache_dtype) + 0)
+                        icl_vs.append(v_l.to(cache_dtype) + 0)
             else:
                 if icl.max_classes > 0:
                     ry = icl.y_encoder(y_tr.float())
@@ -381,8 +382,8 @@ class BucketedCompiledTabICL:
                     r_in, k_l, v_l = block(
                         q=r_in, train_size=train_sz, rope=icl.tf_icl.rope, need_kv=True
                     )
-                    icl_ks.append(k_l.to(cache_dtype))
-                    icl_vs.append(v_l.to(cache_dtype))
+                    icl_ks.append(k_l.to(cache_dtype) + 0)
+                    icl_vs.append(v_l.to(cache_dtype) + 0)
 
             return (*col_ks, *col_vs, *icl_ks, *icl_vs)
 
@@ -452,7 +453,7 @@ class BucketedCompiledTabICL:
                 if icl.norm_first:
                     r_q = icl.ln(r_q)
                 out = icl.decoder(r_q)
-            return out.float()
+            return out.float() + 0
 
         return _fn
 
@@ -507,6 +508,9 @@ class BucketedCompiledTabICL:
         cache_dtype: torch.dtype = torch.bfloat16,
     ) -> tuple[Tensor, tuple[Tensor, ...], tuple[Tensor, ...]]:
         """Compute `(B, T, 512)` row representations for massive `(B, T, H)` using fixed compiled stage tiles."""
+        import os
+
+        multi_host_stage = int(os.environ.get("WORLD_SIZE", "1")) > 8
         col_emb = self.model.col_embedder
         B, T, H = X_bkt.shape
         C = col_emb.reserve_cls_tokens
@@ -520,22 +524,39 @@ class BucketedCompiledTabICL:
         prev_prec = torch.get_float32_matmul_precision()
         try:
             for b0 in range(0, B, b_step):
-                xb = X_bkt[b0 : b0 + b_step]
-                yb = y_bkt[b0 : b0 + b_step]
-                db = d_vec[b0 : b0 + b_step]
+                if multi_host_stage:
+                    xb_cpu = X_bkt[b0 : b0 + b_step].contiguous()
+                    yb_cpu = y_bkt[b0 : b0 + b_step].contiguous()
+                    db_cpu = d_vec[b0 : b0 + b_step].contiguous()
+                    db = db_cpu.to(self.device)
+                    x_grp = col_emb.feature_grouping(xb_cpu, real_features=db_cpu)
+                    if C > 0:
+                        x_grp = F.pad(x_grp, (0, 0, C, 0), value=-100.0)
+                    features_cpu = x_grp.transpose(1, 2).contiguous()
+                    del x_grp
+                    HC = features_cpu.shape[1]
+                    max_g = 8 if T >= 262144 else (16 if T >= 131072 else self.col_group_tile)
+                    g_tile = min(max_g, HC)
+                    HC_pad = int(math.ceil(HC / g_tile) * g_tile)
+                    if HC_pad > HC:
+                        features_cpu = F.pad(features_cpu, (0, 0, 0, 0, 0, HC_pad - HC), value=-100.0).contiguous()
+                else:
+                    xb = X_bkt[b0 : b0 + b_step]
+                    yb = y_bkt[b0 : b0 + b_step]
+                    db = d_vec[b0 : b0 + b_step]
 
-                x_grp = col_emb.feature_grouping(xb, real_features=db)  # (bs, T, H, 3)
-                if C > 0:
-                    x_grp = F.pad(x_grp, (0, 0, C, 0), value=-100.0)
-                features = x_grp.transpose(1, 2).contiguous()  # (bs, H+C, T, 3)
-                del x_grp
+                    x_grp = col_emb.feature_grouping(xb, real_features=db)  # (bs, T, H, 3)
+                    if C > 0:
+                        x_grp = F.pad(x_grp, (0, 0, C, 0), value=-100.0)
+                    features = x_grp.transpose(1, 2).contiguous()  # (bs, H+C, T, 3)
+                    del x_grp
 
-                HC = features.shape[1]
-                max_g = 8 if T >= 262144 else (16 if T >= 131072 else self.col_group_tile)
-                g_tile = min(max_g, HC)
-                HC_pad = int(math.ceil(HC / g_tile) * g_tile)
-                if HC_pad > HC:
-                    features = F.pad(features, (0, 0, 0, 0, 0, HC_pad - HC), value=-100.0)
+                    HC = features.shape[1]
+                    max_g = 8 if T >= 262144 else (16 if T >= 131072 else self.col_group_tile)
+                    g_tile = min(max_g, HC)
+                    HC_pad = int(math.ceil(HC / g_tile) * g_tile)
+                    if HC_pad > HC:
+                        features = F.pad(features, (0, 0, 0, 0, 0, HC_pad - HC), value=-100.0)
 
                 torch.set_float32_matmul_precision("highest")
                 col_chunks: list[Tensor] = []
@@ -544,11 +565,15 @@ class BucketedCompiledTabICL:
 
                 ultra_cells = T * HC
                 use_bf16_buf = self.use_amp and (ultra_cells > 25_000_000)
-                stage_cpu = ultra_cells > 100_000_000
+                stage_cpu = (ultra_cells > 100_000_000) or multi_host_stage
 
                 for g0 in range(0, HC_pad, g_tile):
-                    f_sub = features[:, g0 : g0 + g_tile].contiguous()
-                    y_sub = yb.unsqueeze(1).expand(-1, g_tile, -1).contiguous()
+                    if multi_host_stage:
+                        f_sub = features_cpu[:, g0 : g0 + g_tile].contiguous().to(self.device)
+                        y_sub = yb_cpu.unsqueeze(1).expand(-1, g_tile, -1).contiguous().to(self.device)
+                    else:
+                        f_sub = features[:, g0 : g0 + g_tile].contiguous()
+                        y_sub = yb.unsqueeze(1).expand(-1, g_tile, -1).contiguous()
                     if store_col_cache:
                         fn_pf = (
                             self._col_chunk_prefill_bfloat16_compiled
@@ -556,17 +581,26 @@ class BucketedCompiledTabICL:
                             else self._col_chunk_prefill_float32_compiled
                         )
                         res = fn_pf(f_sub, y_sub, train_sz)
-                        ch_out = res[0].to(torch.bfloat16) if use_bf16_buf else res[0]
-                        col_chunks.append(ch_out.cpu() if stage_cpu else ch_out)
+                        if stage_cpu:
+                            r0_cpu = res[0].cpu()
+                            col_chunks.append(r0_cpu.to(torch.bfloat16) if use_bf16_buf else r0_cpu)
+                        else:
+                            col_chunks.append(res[0].to(torch.bfloat16) if use_bf16_buf else res[0])
                         n_blk = len(col_emb.tf_col.blocks)
                         for bi in range(n_blk):
-                            k_chunks[bi].append(res[1 + bi])
-                            v_chunks[bi].append(res[1 + n_blk + bi])
+                            k_chunks[bi].append(res[1 + bi].cpu() if multi_host_stage else res[1 + bi])
+                            v_chunks[bi].append(res[1 + n_blk + bi].cpu() if multi_host_stage else res[1 + n_blk + bi])
                     else:
                         ch_raw = self._col_chunk_compiled(f_sub, y_sub, train_sz)
-                        ch_out = ch_raw.to(torch.bfloat16) if use_bf16_buf else ch_raw
-                        col_chunks.append(ch_out.cpu() if stage_cpu else ch_out)
-                del features
+                        if stage_cpu:
+                            ch_cpu = ch_raw.cpu()
+                            col_chunks.append(ch_cpu.to(torch.bfloat16) if use_bf16_buf else ch_cpu)
+                        else:
+                            col_chunks.append(ch_raw.to(torch.bfloat16) if use_bf16_buf else ch_raw)
+                if multi_host_stage:
+                    del features_cpu
+                else:
+                    del features
 
                 if store_col_cache:
                     for bi in range(len(col_emb.tf_col.blocks)):
@@ -577,23 +611,30 @@ class BucketedCompiledTabICL:
                 r_tile = min(self.row_tile_size, T)
                 row_outs: list[Tensor] = []
                 for t0 in range(0, T, r_tile):
-                    tile_slices = [
-                        (ch[:, :, t0 : t0 + r_tile, :].to(self.device, dtype=torch.float32) if stage_cpu else ch[:, :, t0 : t0 + r_tile, :].float())
-                        for ch in col_chunks
-                    ]
-                    c_sub = torch.cat(tile_slices, dim=1)[:, :HC].transpose(1, 2).contiguous()
-                    del tile_slices
-                    row_outs.append(self._row_tile_compiled(c_sub, db))
+                    if stage_cpu:
+                        c_sub = (
+                            torch.cat([ch[:, :, t0 : t0 + r_tile, :] for ch in col_chunks], dim=1)[:, :HC]
+                            .transpose(1, 2)
+                            .to(dtype=torch.float32)
+                            .contiguous()
+                            .to(self.device)
+                        )
+                    else:
+                        tile_slices = [ch[:, :, t0 : t0 + r_tile, :].float() for ch in col_chunks]
+                        c_sub = torch.cat(tile_slices, dim=1)[:, :HC].transpose(1, 2).contiguous()
+                        del tile_slices
+                    ro = self._row_tile_compiled(c_sub, db)
+                    row_outs.append(ro.cpu() if multi_host_stage else ro)
                     del c_sub
                 del col_chunks
                 reprs_list.append(torch.cat(row_outs, dim=1))
         finally:
             torch.set_float32_matmul_precision(prev_prec)
 
-        reprs = torch.cat(reprs_list, dim=0)
+        reprs = torch.cat(reprs_list, dim=0).contiguous()
         if store_col_cache:
-            col_ks = tuple(torch.cat(col_k_batches[bi], dim=0) for bi in range(len(col_emb.tf_col.blocks)))
-            col_vs = tuple(torch.cat(col_v_batches[bi], dim=0) for bi in range(len(col_emb.tf_col.blocks)))
+            col_ks = tuple(torch.cat(col_k_batches[bi], dim=0).contiguous() for bi in range(len(col_emb.tf_col.blocks)))
+            col_vs = tuple(torch.cat(col_v_batches[bi], dim=0).contiguous() for bi in range(len(col_emb.tf_col.blocks)))
             return reprs, col_ks, col_vs
         return reprs, (), ()
 
@@ -620,6 +661,10 @@ class BucketedCompiledTabICL:
                 self._sync()
             return out_fb.float(), 0.0
 
+        import os
+
+        multi_host_stage = int(os.environ.get("WORLD_SIZE", "1")) > 8
+
         B_real, T_real, H_real = X.shape
         train_real = y_train.shape[1]
         test_real = T_real - train_real
@@ -628,17 +673,18 @@ class BucketedCompiledTabICL:
         T_bkt = pick_bucket(T_real, ROW_BUCKETS)
         H_bkt = pick_bucket(H_real, FEATURE_BUCKETS)
 
-        X_bkt = torch.zeros((B_bkt, T_bkt, H_bkt), device=self.device, dtype=torch.float32)
-        X_bkt[:B_real, :T_real, :H_real] = X.to(self.device, dtype=torch.float32)
+        pad_dev = torch.device("cpu") if multi_host_stage else self.device
+        X_bkt = torch.zeros((B_bkt, T_bkt, H_bkt), device=pad_dev, dtype=torch.float32)
+        X_bkt[:B_real, :T_real, :H_real] = X.to(pad_dev, dtype=torch.float32)
 
-        y_bkt = torch.zeros((B_bkt, T_bkt), device=self.device, dtype=torch.float32)
-        y_bkt[:B_real, :train_real] = y_train.to(self.device, dtype=torch.float32)
+        y_bkt = torch.zeros((B_bkt, T_bkt), device=pad_dev, dtype=torch.float32)
+        y_bkt[:B_real, :train_real] = y_train.to(pad_dev, dtype=torch.float32)
         if B_bkt > B_real:
             X_bkt[B_real:] = X_bkt[0:1]
             y_bkt[B_real:] = y_bkt[0:1]
 
-        d_vec = torch.full((B_bkt,), H_real, device=self.device, dtype=torch.long)
-        train_sz = torch.tensor(train_real, device=self.device, dtype=torch.long)
+        d_vec = torch.full((B_bkt,), H_real, device=pad_dev, dtype=torch.long)
+        train_sz = torch.tensor(train_real, dtype=torch.long).to(self.device)
 
         use_tiled = (B_bkt * T_bkt * (H_bkt + 4)) > self.max_fused_elements
         key = ("nocache_tiled" if use_tiled else "nocache_fused", B_bkt, T_bkt, H_bkt, self.use_amp)
@@ -650,17 +696,35 @@ class BucketedCompiledTabICL:
                 prev_prec = torch.get_float32_matmul_precision()
                 torch.set_float32_matmul_precision("highest")
                 try:
-                    raw_full = self._nocache_compiled(X_bkt, y_bkt, d_vec, train_sz)
+                    if multi_host_stage:
+                        raw_full = self._nocache_compiled(
+                            X_bkt.to(self.device), y_bkt.to(self.device), d_vec.to(self.device), train_sz
+                        ).cpu()
+                    else:
+                        raw_full = self._nocache_compiled(X_bkt, y_bkt, d_vec, train_sz)
                 finally:
                     torch.set_float32_matmul_precision(prev_prec)
             else:
                 reprs, _, _ = self._run_stage_tiled_col_row(X_bkt, y_bkt, d_vec, train_sz, store_col_cache=False)
                 icl_b_step = 1 if T_bkt >= 65536 else (min(B_bkt, 2) if T_bkt >= 32768 else B_bkt)
                 if icl_b_step == B_bkt:
-                    raw_full = self._icl_only_compiled(reprs, y_bkt, train_sz)
+                    if multi_host_stage:
+                        raw_full = self._icl_only_compiled(
+                            reprs.to(self.device), y_bkt.to(self.device), train_sz
+                        ).cpu()
+                    else:
+                        raw_full = self._icl_only_compiled(reprs, y_bkt, train_sz)
                 else:
                     parts = [
-                        self._icl_only_compiled(reprs[i : i + icl_b_step], y_bkt[i : i + icl_b_step], train_sz)
+                        (
+                            self._icl_only_compiled(
+                                reprs[i : i + icl_b_step].contiguous().to(self.device),
+                                y_bkt[i : i + icl_b_step].contiguous().to(self.device),
+                                train_sz,
+                            ).cpu()
+                            if multi_host_stage
+                            else self._icl_only_compiled(reprs[i : i + icl_b_step], y_bkt[i : i + icl_b_step], train_sz)
+                        )
                         for i in range(0, B_bkt, icl_b_step)
                     ]
                     raw_full = torch.cat(parts, dim=0)
@@ -689,6 +753,10 @@ class BucketedCompiledTabICL:
         cache_dtype: Optional[torch.dtype] = None,
     ) -> tuple[BucketedKVCache, float]:
         """Compile & execute bucket-padded KV-cache prefill (`store_cache=True`)."""
+        import os
+
+        multi_host_stage = int(os.environ.get("WORLD_SIZE", "1")) > 8
+
         B_real, T_real, H_real = X_train.shape
         B_bkt = pick_bucket(B_real, BATCH_BUCKETS)
         T_bkt = pick_bucket(T_real, ROW_BUCKETS)
@@ -698,17 +766,18 @@ class BucketedCompiledTabICL:
         if eff_dtype == torch.float16:
             raise ValueError("fp16 KV cache is forbidden on TorchTPU.")
 
-        X_bkt = torch.zeros((B_bkt, T_bkt, H_bkt), device=self.device, dtype=torch.float32)
-        X_bkt[:B_real, :T_real, :H_real] = X_train.to(self.device, dtype=torch.float32)
+        pad_dev = torch.device("cpu") if multi_host_stage else self.device
+        X_bkt = torch.zeros((B_bkt, T_bkt, H_bkt), device=pad_dev, dtype=torch.float32)
+        X_bkt[:B_real, :T_real, :H_real] = X_train.to(pad_dev, dtype=torch.float32)
 
-        y_bkt = torch.zeros((B_bkt, T_bkt), device=self.device, dtype=torch.float32)
-        y_bkt[:B_real, :T_real] = y_train.to(self.device, dtype=torch.float32)
+        y_bkt = torch.zeros((B_bkt, T_bkt), device=pad_dev, dtype=torch.float32)
+        y_bkt[:B_real, :T_real] = y_train.to(pad_dev, dtype=torch.float32)
         if B_bkt > B_real:
             X_bkt[B_real:] = X_bkt[0:1]
             y_bkt[B_real:] = y_bkt[0:1]
 
-        d_vec = torch.full((B_bkt,), H_real, device=self.device, dtype=torch.long)
-        train_sz = torch.tensor(T_real, device=self.device, dtype=torch.long)
+        d_vec = torch.full((B_bkt,), H_real, device=pad_dev, dtype=torch.long)
+        train_sz = torch.tensor(T_real, dtype=torch.long).to(self.device)
 
         use_tiled = (B_bkt * T_bkt * (H_bkt + 4)) > self.max_fused_elements
         key = ("prefill_tiled" if use_tiled else "prefill_fused", B_bkt, T_bkt, H_bkt, str(eff_dtype), self.use_amp)
@@ -728,7 +797,11 @@ class BucketedCompiledTabICL:
                         if (self.use_amp and eff_dtype == torch.bfloat16)
                         else self._prefill_float32_compiled
                     )
-                    flat_kv = pf_fn(X_bkt, y_bkt, d_vec, train_sz)
+                    if multi_host_stage:
+                        flat_kv = pf_fn(X_bkt.to(self.device), y_bkt.to(self.device), d_vec.to(self.device), train_sz)
+                        flat_kv = tuple(t.cpu() for t in flat_kv)
+                    else:
+                        flat_kv = pf_fn(X_bkt, y_bkt, d_vec, train_sz)
                 finally:
                     torch.set_float32_matmul_precision(prev_prec)
                 col_ks = tuple(flat_kv[:n_col])
@@ -746,19 +819,43 @@ class BucketedCompiledTabICL:
                 )
                 icl_b_step = 1 if T_bkt >= 65536 else (min(B_bkt, 2) if T_bkt >= 32768 else B_bkt)
                 if icl_b_step == B_bkt:
-                    icl_flat = icl_pf_fn(reprs, y_bkt, train_sz)
+                    if multi_host_stage:
+                        icl_flat = icl_pf_fn(reprs.to(self.device), y_bkt.to(self.device), train_sz)
+                        icl_flat = tuple(t.cpu() for t in icl_flat)
+                    else:
+                        icl_flat = icl_pf_fn(reprs, y_bkt, train_sz)
                     icl_ks = tuple(icl_flat[:n_icl])
                     icl_vs = tuple(icl_flat[n_icl : 2 * n_icl])
                 else:
                     ks_acc: list[list[Tensor]] = [[] for _ in range(n_icl)]
                     vs_acc: list[list[Tensor]] = [[] for _ in range(n_icl)]
                     for i in range(0, B_bkt, icl_b_step):
-                        sub_flat = icl_pf_fn(reprs[i : i + icl_b_step], y_bkt[i : i + icl_b_step], train_sz)
+                        if multi_host_stage:
+                            sub_flat = icl_pf_fn(
+                                reprs[i : i + icl_b_step].contiguous().to(self.device),
+                                y_bkt[i : i + icl_b_step].contiguous().to(self.device),
+                                train_sz,
+                            )
+                        else:
+                            sub_flat = icl_pf_fn(reprs[i : i + icl_b_step], y_bkt[i : i + icl_b_step], train_sz)
                         for li in range(n_icl):
-                            ks_acc[li].append(sub_flat[li])
-                            vs_acc[li].append(sub_flat[n_icl + li])
-                    icl_ks = tuple(torch.cat(ks_acc[li], dim=0) for li in range(n_icl))
-                    icl_vs = tuple(torch.cat(vs_acc[li], dim=0) for li in range(n_icl))
+                            ks_acc[li].append(sub_flat[li].cpu() if multi_host_stage else sub_flat[li])
+                            vs_acc[li].append(sub_flat[n_icl + li].cpu() if multi_host_stage else sub_flat[n_icl + li])
+                    icl_ks = tuple(torch.cat(ks_acc[li], dim=0).contiguous() for li in range(n_icl))
+                    icl_vs = tuple(torch.cat(vs_acc[li], dim=0).contiguous() for li in range(n_icl))
+
+                if multi_host_stage:
+                    # Promote finished full-batch KV cache buffers once onto TPU for fast repeated queries when B_bkt == icl_b_step_q
+                    if T_bkt < 65536:
+                        col_ks = tuple(t.to(self.device) for t in col_ks)
+                        col_vs = tuple(t.to(self.device) for t in col_vs)
+                        icl_ks = tuple(t.to(self.device) for t in icl_ks)
+                        icl_vs = tuple(t.to(self.device) for t in icl_vs)
+            if multi_host_stage and not use_tiled and T_bkt < 65536:
+                col_ks = tuple(t.to(self.device) for t in col_ks)
+                col_vs = tuple(t.to(self.device) for t in col_vs)
+                icl_ks = tuple(t.to(self.device) for t in icl_ks)
+                icl_vs = tuple(t.to(self.device) for t in icl_vs)
 
             self._sync()
             elapsed = time.perf_counter() - t0
@@ -793,18 +890,23 @@ class BucketedCompiledTabICL:
         softmax_temperature: float = 0.9,
     ) -> tuple[Tensor, float]:
         """Compile & execute bucket-padded KV-cache query (`use_cache=True`)."""
+        import os
+
+        multi_host_stage = int(os.environ.get("WORLD_SIZE", "1")) > 8
+
         B_real, T_te_real, H_real = X_test.shape
         B_bkt = cache.padded_batch
         H_bkt = cache.padded_features
         T_te_bkt = pick_bucket(T_te_real, TEST_ROW_BUCKETS)
 
-        X_te_bkt = torch.zeros((B_bkt, T_te_bkt, H_bkt), device=self.device, dtype=torch.float32)
-        X_te_bkt[:B_real, :T_te_real, :H_real] = X_test.to(self.device, dtype=torch.float32)
+        pad_dev = torch.device("cpu") if multi_host_stage else self.device
+        X_te_bkt = torch.zeros((B_bkt, T_te_bkt, H_bkt), device=pad_dev, dtype=torch.float32)
+        X_te_bkt[:B_real, :T_te_real, :H_real] = X_test.to(pad_dev, dtype=torch.float32)
         if B_bkt > B_real:
             X_te_bkt[B_real:] = X_te_bkt[0:1]
 
-        d_vec = torch.full((B_bkt,), cache.real_features, device=self.device, dtype=torch.long)
-        train_sz = torch.tensor(cache.real_train_size, device=self.device, dtype=torch.long)
+        d_vec = torch.full((B_bkt,), cache.real_features, device=pad_dev, dtype=torch.long)
+        train_sz = torch.tensor(cache.real_train_size, dtype=torch.long).to(self.device)
 
         key = (
             "query_fused",
@@ -829,23 +931,40 @@ class BucketedCompiledTabICL:
                 )
                 if icl_b_step == B_bkt:
                     raw_out = self._query_compiled(
-                        X_te_bkt,
-                        d_vec,
+                        X_te_bkt.to(self.device) if multi_host_stage else X_te_bkt,
+                        d_vec.to(self.device) if multi_host_stage else d_vec,
                         train_sz,
-                        *cache.col_keys,
-                        *cache.col_values,
-                        *cache.icl_keys,
-                        *cache.icl_values,
+                        *[t.to(self.device) if t.device.type == "cpu" else t for t in cache.col_keys],
+                        *[t.to(self.device) if t.device.type == "cpu" else t for t in cache.col_values],
+                        *[t.to(self.device) if t.device.type == "cpu" else t for t in cache.icl_keys],
+                        *[t.to(self.device) if t.device.type == "cpu" else t for t in cache.icl_values],
                     )
+                    if multi_host_stage:
+                        raw_out = raw_out.cpu()
                 else:
                     parts = []
                     for i in range(0, B_bkt, icl_b_step):
-                        ck = [t[i : i + icl_b_step] for t in cache.col_keys]
-                        cv = [t[i : i + icl_b_step] for t in cache.col_values]
-                        ik = [t[i : i + icl_b_step] for t in cache.icl_keys]
-                        iv = [t[i : i + icl_b_step] for t in cache.icl_values]
-                        parts.append(
-                            self._query_compiled(
+                        if multi_host_stage:
+                            ck = [t[i : i + icl_b_step].contiguous().to(self.device) for t in cache.col_keys]
+                            cv = [t[i : i + icl_b_step].contiguous().to(self.device) for t in cache.col_values]
+                            ik = [t[i : i + icl_b_step].contiguous().to(self.device) for t in cache.icl_keys]
+                            iv = [t[i : i + icl_b_step].contiguous().to(self.device) for t in cache.icl_values]
+                            q_res = self._query_compiled(
+                                X_te_bkt[i : i + icl_b_step].contiguous().to(self.device),
+                                d_vec[i : i + icl_b_step].contiguous().to(self.device),
+                                train_sz,
+                                *ck,
+                                *cv,
+                                *ik,
+                                *iv,
+                            )
+                            parts.append(q_res.cpu())
+                        else:
+                            ck = [t[i : i + icl_b_step] for t in cache.col_keys]
+                            cv = [t[i : i + icl_b_step] for t in cache.col_values]
+                            ik = [t[i : i + icl_b_step] for t in cache.icl_keys]
+                            iv = [t[i : i + icl_b_step] for t in cache.icl_values]
+                            q_res = self._query_compiled(
                                 X_te_bkt[i : i + icl_b_step],
                                 d_vec[i : i + icl_b_step],
                                 train_sz,
@@ -854,7 +973,7 @@ class BucketedCompiledTabICL:
                                 *ik,
                                 *iv,
                             )
-                        )
+                            parts.append(q_res)
                     raw_out = torch.cat(parts, dim=0)
             finally:
                 torch.set_float32_matmul_precision(prev_prec)
