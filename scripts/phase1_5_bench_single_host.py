@@ -618,7 +618,12 @@ def run_eight_device_worker(out_json: str, start_idx: int = 1, seed_json: str = 
             continue
 
         torch.manual_seed(1000 * (local_rank + 1) + n_tr + n_feat)
-        view_batches = [1] if n_est == 1 else [n_est // 2, n_est - (n_est // 2)]
+        if n_est == 1:
+            view_batches = [1]
+        elif t_tot >= 32768 and n_est > 8:
+            view_batches = [4] * (n_est // 4) + ([n_est % 4] if n_est % 4 else [])
+        else:
+            view_batches = [n_est // 2, n_est - (n_est // 2)]
         ev0 = len(runner.compile_events)
         torch.accelerator.reset_peak_memory_stats(dev)
 
