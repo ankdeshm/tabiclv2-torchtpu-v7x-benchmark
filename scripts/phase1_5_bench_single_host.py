@@ -160,6 +160,34 @@ def _bench_one_synthetic(
         b_b = n_est - b_a
         view_batches = [b_a, b_b]
 
+    if max(view_batches) * (n_tr + n_te) * n_feat >= 480_000_000:
+        msg = "exceeds_96GiB_single_tensorcore_hbm_guard(>=88.5GiB_buffer)"
+        print(f"[SKIP-HBM] {spec['tag']} ({n_tr}x{n_feat}, est={n_est}) -> {msg}", flush=True)
+        return {
+            "phase": "1.5_single_host",
+            "path": f"path_a_compiled_{dtype_str}_{'kv' if kv_cache else 'nocache'}",
+            "model": model_name,
+            "dtype": dtype_str,
+            "n_train": n_tr,
+            "n_test": n_te,
+            "n_features": n_feat,
+            "n_classes": n_cls,
+            "n_estimators": n_est,
+            "kv_cache": kv_cache,
+            "devices": devices_str,
+            "batch_datasets": batch_datasets,
+            "compile_s": 0.0,
+            "p50_ms": -1.0,
+            "p99_ms": -1.0,
+            "datasets_per_s": 0.0,
+            "test_rows_per_s": 0.0,
+            "peak_hbm_gib": 88.54,
+            "metric_name": "error_or_oom",
+            "metric_value": -1.0,
+            "ref_metric_value": "",
+            "notes": f"tag={spec['tag']};err={msg}",
+        }
+
     events_before = len(runner.compile_events)
     gc.collect()
     torch.accelerator.reset_peak_memory_stats(dev)
@@ -313,7 +341,7 @@ def _bench_one_synthetic(
         }
 
 
-def run_single_device_worker(bundle_path: str, out_json: str) -> int:
+def run_single_device_worker(bundle_path: str, out_json: str, start_idx: int = 1, seed_json: str = "") -> int:
     import torch
     import torch_tpu  # noqa: F401
     from sklearn.metrics import root_mean_squared_error, roc_auc_score
@@ -339,12 +367,18 @@ def run_single_device_worker(bundle_path: str, out_json: str) -> int:
     }
 
     rows: list[dict[str, Any]] = []
+    if seed_json and Path(seed_json).exists():
+        rows = json.loads(Path(seed_json).read_text())
+        print(f"[1.5 SingleDevice] Loaded {len(rows)} seeded rows from {seed_json} (start_idx={start_idx})", flush=True)
     specs = _build_single_device_specs()
-    print(f"[1.5 SingleDevice] Benchmarking {len(specs)} synthetic configurations on tpu:0...", flush=True)
+    print(f"[1.5 SingleDevice] Benchmarking {len(specs)} synthetic configurations on tpu:0 (from idx={start_idx})...", flush=True)
 
     for idx, sp in enumerate(specs, 1):
+        if idx < start_idx:
+            continue
         row = _bench_one_synthetic(sp, runners, dev, devices_str="tpu:1", batch_datasets=1)
         rows.append(row)
+        Path(out_json).write_text(json.dumps(rows, indent=2))
         print(
             f"[{idx:03d}/{len(specs):03d}] {sp['tag']:28s} tr={sp['n_train']:6d} te={sp['n_test']:5d} "
             f"f={sp['n_features']:3d} cls={sp['n_classes']:2d} est={sp['n_estimators']:2d} kv={str(sp['kv_cache']):5s} "
@@ -635,6 +669,7 @@ def run_eight_device_worker(out_json: str) -> int:
                     "notes": f"tag={tag};iters={iters};ranks={world_size};wall_s={wall_total_s:.3f}",
                 }
             )
+            Path(out_json).write_text(json.dumps(dp_rows, indent=2))
 
     if local_rank == 0:
         Path(out_json).write_text(json.dumps(dp_rows, indent=2))
@@ -650,10 +685,12 @@ def main() -> int:
     ap.add_argument("--out-csv", default="/tmp/bench_single_host.csv")
     ap.add_argument("--out-summary", default="/tmp/bench_single_host_summary.json")
     ap.add_argument("--tmp-json", default="/tmp/phase1_5_part.json")
+    ap.add_argument("--start-idx", type=int, default=1)
+    ap.add_argument("--seed-json", default="")
     args = ap.parse_args()
 
     if args.worker_mode == "single":
-        return run_single_device_worker(args.bundle_path, args.tmp_json)
+        return run_single_device_worker(args.bundle_path, args.tmp_json, start_idx=args.start_idx, seed_json=args.seed_json)
     if args.worker_mode == "dp8":
         return run_eight_device_worker(args.tmp_json)
 
