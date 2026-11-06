@@ -1,0 +1,1691 @@
+{
+  "configs": {
+    "fp32_nocache": {
+      "max_auc_abs_diff": 0.000244,
+      "max_rmse_rel_diff": 1e-06,
+      "total_kv_cache_bytes_across_15_datasets": 0,
+      "records": [
+        {
+          "data_id": 31,
+          "name": "credit-g",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522476661286086
+          },
+          "ref_metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522459922106293
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 2.4437904357910156e-06,
+          "fit_ms": 449.834,
+          "pred_ms": 598.518,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 10.9446,
+          "gate_ok": true
+        },
+        {
+          "data_id": 37,
+          "name": "diabetes",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094143905780971
+          },
+          "ref_metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094144676863432
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 1.9073486328125e-06,
+          "fit_ms": 363.022,
+          "pred_ms": 485.34,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 10.059,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1464,
+          "name": "blood-transfusion-service-center",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7958089668615985,
+            "log_loss": 0.4469859043139026
+          },
+          "ref_metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7955653021442495,
+            "log_loss": 0.44698609288198715
+          },
+          "auc_abs_diff": 0.00024366471734904582,
+          "max_proba_abs_diff": 1.6689300537109375e-06,
+          "fit_ms": 381.185,
+          "pred_ms": 475.975,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 9.8957,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1489,
+          "name": "phoneme",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.20726993460163068
+          },
+          "ref_metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.2072701581772115
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 8.225440979003906e-06,
+          "fit_ms": 346.78,
+          "pred_ms": 1220.596,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 37.8942,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1067,
+          "name": "kc1",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.8567765567765567,
+            "log_loss": 0.3031979967390115
+          },
+          "ref_metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.856711915535445,
+            "log_loss": 0.3031978044763815
+          },
+          "auc_abs_diff": 6.46412411117181e-05,
+          "max_proba_abs_diff": 6.139278411865234e-06,
+          "fit_ms": 419.315,
+          "pred_ms": 858.394,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 38.9774,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1494,
+          "name": "qsar-biodeg",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.2749741969517962
+          },
+          "ref_metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.27497392566217393
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 4.589557647705078e-06,
+          "fit_ms": 393.259,
+          "pred_ms": 647.533,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 38.769,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40701,
+          "name": "churn",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.915874804075235,
+            "log_loss": 0.15173209130841844
+          },
+          "ref_metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.9158748040752351,
+            "log_loss": 0.1517319736774723
+          },
+          "auc_abs_diff": 1.1102230246251565e-16,
+          "max_proba_abs_diff": 1.163780689239502e-05,
+          "fit_ms": 418.007,
+          "pred_ms": 1158.8,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 43.5787,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40984,
+          "name": "segment",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9971905199177927,
+            "log_loss": 0.13920068100167488
+          },
+          "ref_metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9972178494905768,
+            "log_loss": 0.1392014650056269
+          },
+          "auc_abs_diff": 2.7329572784062783e-05,
+          "max_proba_abs_diff": 1.9073486328125e-05,
+          "fit_ms": 405.354,
+          "pred_ms": 955.842,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 40.4126,
+          "gate_ok": true
+        },
+        {
+          "data_id": 46,
+          "name": "splice",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653236641922838
+          },
+          "ref_metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653247217487444
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 4.231929779052734e-06,
+          "fit_ms": 482.515,
+          "pred_ms": 2505.844,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 50.3607,
+          "gate_ok": true
+        },
+        {
+          "data_id": 54,
+          "name": "vehicle",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.25401350820395024
+          },
+          "ref_metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.2540134060646609
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 1.329183578491211e-05,
+          "fit_ms": 410.187,
+          "pred_ms": 571.95,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 38.803,
+          "gate_ok": true
+        },
+        {
+          "data_id": 562,
+          "name": "cpu_small",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 2.4070875768343702,
+            "r2": 0.981316347447407
+          },
+          "ref_metrics": {
+            "rmse": 2.407087678085519,
+            "r2": 0.9813163458755978
+          },
+          "rmse_rel_diff": 4.206375603388324e-08,
+          "fit_ms": 421.053,
+          "pred_ms": 1278.83,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 41.8028,
+          "gate_ok": true
+        },
+        {
+          "data_id": 189,
+          "name": "kin8nm",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.07288682720604807,
+            "r2": 0.9259435094340742
+          },
+          "ref_metrics": {
+            "rmse": 0.07288684489310807,
+            "r2": 0.9259434734922778
+          },
+          "rmse_rel_diff": 2.426646402708954e-07,
+          "fit_ms": 399.701,
+          "pred_ms": 1122.733,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 40.8056,
+          "gate_ok": true
+        },
+        {
+          "data_id": 287,
+          "name": "wine_quality",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.653519115724133,
+            "r2": 0.4562869666142748
+          },
+          "ref_metrics": {
+            "rmse": 0.653519204999319,
+            "r2": 0.45628681806441806
+          },
+          "rmse_rel_diff": 1.366068286268174e-07,
+          "fit_ms": 418.218,
+          "pred_ms": 1219.568,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 41.6183,
+          "gate_ok": true
+        },
+        {
+          "data_id": 183,
+          "name": "abalone",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 1.9214673887644529,
+            "r2": 0.6442269516118186
+          },
+          "ref_metrics": {
+            "rmse": 1.9214671795700105,
+            "r2": 0.6442270290794258
+          },
+          "rmse_rel_diff": 1.0887224344280355e-07,
+          "fit_ms": 436.773,
+          "pred_ms": 948.3,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 40.844,
+          "gate_ok": true
+        },
+        {
+          "data_id": 44959,
+          "name": "concrete_compressive_strength",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 3.7125579777810698,
+            "r2": 0.9465110659057436
+          },
+          "ref_metrics": {
+            "rmse": 3.712555366314206,
+            "r2": 0.9465111411554936
+          },
+          "rmse_rel_diff": 7.034149274165458e-07,
+          "fit_ms": 420.185,
+          "pred_ms": 600.339,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 38.5818,
+          "gate_ok": true
+        }
+      ]
+    },
+    "fp32_kv_fp32": {
+      "max_auc_abs_diff": 0.000365,
+      "max_rmse_rel_diff": 1e-06,
+      "total_kv_cache_bytes_across_15_datasets": 12842041344,
+      "records": [
+        {
+          "data_id": 31,
+          "name": "credit-g",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522478917963886
+          },
+          "ref_metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522459922106293
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 2.1457672119140625e-06,
+          "fit_ms": 899.159,
+          "pred_ms": 324.688,
+          "kv_cache_bytes": 390070272,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 39.2895,
+          "gate_ok": true
+        },
+        {
+          "data_id": 37,
+          "name": "diabetes",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094144275744618
+          },
+          "ref_metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094144676863432
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 2.1457672119140625e-06,
+          "fit_ms": 815.466,
+          "pred_ms": 309.989,
+          "kv_cache_bytes": 279183360,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 38.4654,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1464,
+          "name": "blood-transfusion-service-center",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7951998050682261,
+            "log_loss": 0.4469859044524488
+          },
+          "ref_metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7955653021442495,
+            "log_loss": 0.44698609288198715
+          },
+          "auc_abs_diff": 0.0003654970760234022,
+          "max_proba_abs_diff": 1.6689300537109375e-06,
+          "fit_ms": 753.736,
+          "pred_ms": 318.439,
+          "kv_cache_bytes": 260308992,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 38.3401,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1489,
+          "name": "phoneme",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.2072699887089952
+          },
+          "ref_metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.2072701581772115
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 7.808208465576172e-06,
+          "fit_ms": 1466.007,
+          "pred_ms": 462.155,
+          "kv_cache_bytes": 1316487168,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 40.4411,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1067,
+          "name": "kc1",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.8570351217410042,
+            "log_loss": 0.30319791137278534
+          },
+          "ref_metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.856711915535445,
+            "log_loss": 0.3031978044763815
+          },
+          "auc_abs_diff": 0.0003232062055591456,
+          "max_proba_abs_diff": 7.987022399902344e-06,
+          "fit_ms": 1151.094,
+          "pred_ms": 384.816,
+          "kv_cache_bytes": 741998592,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.1568,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1494,
+          "name": "qsar-biodeg",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.27497412607918376
+          },
+          "ref_metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.27497392566217393
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 4.231929779052734e-06,
+          "fit_ms": 982.767,
+          "pred_ms": 341.508,
+          "kv_cache_bytes": 473432064,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 40.8172,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40701,
+          "name": "churn",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.915874804075235,
+            "log_loss": 0.15173212326354493
+          },
+          "ref_metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.9158748040752351,
+            "log_loss": 0.1517319736774723
+          },
+          "auc_abs_diff": 1.1102230246251565e-16,
+          "max_proba_abs_diff": 1.1801719665527344e-05,
+          "fit_ms": 1576.056,
+          "pred_ms": 381.705,
+          "kv_cache_bytes": 1363673088,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 43.8366,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40984,
+          "name": "segment",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9972342472342473,
+            "log_loss": 0.13920067450554854
+          },
+          "ref_metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9972178494905768,
+            "log_loss": 0.1392014650056269
+          },
+          "auc_abs_diff": 1.6397743670459874e-05,
+          "max_proba_abs_diff": 1.704692840576172e-05,
+          "fit_ms": 1118.082,
+          "pred_ms": 370.793,
+          "kv_cache_bytes": 789577728,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.0123,
+          "gate_ok": true
+        },
+        {
+          "data_id": 46,
+          "name": "splice",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653236615125482
+          },
+          "ref_metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653247217487444
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 3.6954879760742188e-06,
+          "fit_ms": 1539.708,
+          "pred_ms": 455.723,
+          "kv_cache_bytes": 1204813824,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 49.2725,
+          "gate_ok": true
+        },
+        {
+          "data_id": 54,
+          "name": "vehicle",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.25401354049085334
+          },
+          "ref_metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.2540134060646609
+          },
+          "auc_abs_diff": 0.0,
+          "max_proba_abs_diff": 1.1146068572998047e-05,
+          "fit_ms": 840.934,
+          "pred_ms": 308.216,
+          "kv_cache_bytes": 335020032,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 39.5589,
+          "gate_ok": true
+        },
+        {
+          "data_id": 562,
+          "name": "cpu_small",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 2.407087541230359,
+            "r2": 0.981316348000119
+          },
+          "ref_metrics": {
+            "rmse": 2.407087678085519,
+            "r2": 0.9813163458755978
+          },
+          "rmse_rel_diff": 5.685507897812414e-08,
+          "fit_ms": 1342.885,
+          "pred_ms": 386.242,
+          "kv_cache_bytes": 1338507264,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 42.4252,
+          "gate_ok": true
+        },
+        {
+          "data_id": 189,
+          "name": "kin8nm",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.07288682855580426,
+            "r2": 0.9259435066912409
+          },
+          "ref_metrics": {
+            "rmse": 0.07288684489310807,
+            "r2": 0.9259434734922778
+          },
+          "rmse_rel_diff": 2.2414612443899529e-07,
+          "fit_ms": 1346.767,
+          "pred_ms": 371.748,
+          "kv_cache_bytes": 1325924352,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.6052,
+          "gate_ok": true
+        },
+        {
+          "data_id": 287,
+          "name": "wine_quality",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.6535191458278093,
+            "r2": 0.45628691652312614
+          },
+          "ref_metrics": {
+            "rmse": 0.653519204999319,
+            "r2": 0.45628681806441806
+          },
+          "rmse_rel_diff": 9.054287808396566e-08,
+          "fit_ms": 1362.221,
+          "pred_ms": 371.737,
+          "kv_cache_bytes": 1335361536,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 42.3348,
+          "gate_ok": true
+        },
+        {
+          "data_id": 183,
+          "name": "abalone",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 1.9214672940053075,
+            "r2": 0.6442269867024472
+          },
+          "ref_metrics": {
+            "rmse": 1.9214671795700105,
+            "r2": 0.6442270290794258
+          },
+          "rmse_rel_diff": 5.9556206855049254e-08,
+          "fit_ms": 1228.688,
+          "pred_ms": 229.506,
+          "kv_cache_bytes": 1325924352,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.7241,
+          "gate_ok": true
+        },
+        {
+          "data_id": 44959,
+          "name": "concrete_compressive_strength",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 3.712558530247556,
+            "r2": 0.9465110499863447
+          },
+          "ref_metrics": {
+            "rmse": 3.712555366314206,
+            "r2": 0.9465111411554936
+          },
+          "rmse_rel_diff": 8.522252297193944e-07,
+          "fit_ms": 768.6,
+          "pred_ms": 307.582,
+          "kv_cache_bytes": 361758720,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 39.8417,
+          "gate_ok": true
+        }
+      ]
+    },
+    "bf16_nocache": {
+      "max_auc_abs_diff": 0.001971,
+      "max_rmse_rel_diff": 0.000757,
+      "total_kv_cache_bytes_across_15_datasets": 0,
+      "records": [
+        {
+          "data_id": 31,
+          "name": "credit-g",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7867261904761905,
+            "log_loss": 0.4950116703616997
+          },
+          "ref_metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522459922106293
+          },
+          "auc_abs_diff": 0.0006547619047619913,
+          "max_proba_abs_diff": 0.008689671754837036,
+          "fit_ms": 409.884,
+          "pred_ms": 768.594,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 40.1414,
+          "gate_ok": true
+        },
+        {
+          "data_id": 37,
+          "name": "diabetes",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.8142592592592593,
+            "log_loss": 0.5093813644989424
+          },
+          "ref_metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094144676863432
+          },
+          "auc_abs_diff": 0.00037037037037035425,
+          "max_proba_abs_diff": 0.006551861763000488,
+          "fit_ms": 361.035,
+          "pred_ms": 543.805,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 39.2086,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1464,
+          "name": "blood-transfusion-service-center",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7951998050682262,
+            "log_loss": 0.44747263132229403
+          },
+          "ref_metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7955653021442495,
+            "log_loss": 0.44698609288198715
+          },
+          "auc_abs_diff": 0.0003654970760232912,
+          "max_proba_abs_diff": 0.006662607192993164,
+          "fit_ms": 373.852,
+          "pred_ms": 498.374,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 39.0347,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1489,
+          "name": "phoneme",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698614724198971,
+            "log_loss": 0.20763143898989006
+          },
+          "ref_metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.2072701581772115
+          },
+          "auc_abs_diff": 2.5082593396619224e-05,
+          "max_proba_abs_diff": 0.029121875762939453,
+          "fit_ms": 333.464,
+          "pred_ms": 1275.384,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 40.9563,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1067,
+          "name": "kc1",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.85759534583064,
+            "log_loss": 0.3029271571892661
+          },
+          "ref_metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.856711915535445,
+            "log_loss": 0.3031978044763815
+          },
+          "auc_abs_diff": 0.0008834302951949979,
+          "max_proba_abs_diff": 0.011523127555847168,
+          "fit_ms": 419.906,
+          "pred_ms": 1201.729,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 42.0452,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1494,
+          "name": "qsar-biodeg",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9451710261569417,
+            "log_loss": 0.2746942054899394
+          },
+          "ref_metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.27497392566217393
+          },
+          "auc_abs_diff": 0.0003018108651912099,
+          "max_proba_abs_diff": 0.01562190055847168,
+          "fit_ms": 412.511,
+          "pred_ms": 1012.014,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 41.7912,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40701,
+          "name": "churn",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9621951219512195,
+            "roc_auc": 0.9178462970219436,
+            "log_loss": 0.15196586046535424
+          },
+          "ref_metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.9158748040752351,
+            "log_loss": 0.1517319736774723
+          },
+          "auc_abs_diff": 0.0019714929467085085,
+          "max_proba_abs_diff": 0.031237900257110596,
+          "fit_ms": 434.614,
+          "pred_ms": 1505.799,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 44.8097,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40984,
+          "name": "segment",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9523809523809523,
+            "roc_auc": 0.9971959858323495,
+            "log_loss": 0.13913694352446412
+          },
+          "ref_metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9972178494905768,
+            "log_loss": 0.1392014650056269
+          },
+          "auc_abs_diff": 2.186365822731684e-05,
+          "max_proba_abs_diff": 0.019305408000946045,
+          "fit_ms": 421.951,
+          "pred_ms": 1255.155,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 41.646,
+          "gate_ok": true
+        },
+        {
+          "data_id": 46,
+          "name": "splice",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968565993753913,
+            "log_loss": 0.09657495936755352
+          },
+          "ref_metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653247217487444
+          },
+          "auc_abs_diff": 1.103269396496298e-05,
+          "max_proba_abs_diff": 0.008754312992095947,
+          "fit_ms": 517.836,
+          "pred_ms": 4074.159,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 46.6402,
+          "gate_ok": true
+        },
+        {
+          "data_id": 54,
+          "name": "vehicle",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8647058823529412,
+            "roc_auc": 0.9743317663239538,
+            "log_loss": 0.25735080666188564
+          },
+          "ref_metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.2540134060646609
+          },
+          "auc_abs_diff": 0.0007764587842712389,
+          "max_proba_abs_diff": 0.02043139934539795,
+          "fit_ms": 398.834,
+          "pred_ms": 866.242,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 40.0104,
+          "gate_ok": true
+        },
+        {
+          "data_id": 562,
+          "name": "cpu_small",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 2.4052841321090446,
+            "r2": 0.981344333393963
+          },
+          "ref_metrics": {
+            "rmse": 2.407087678085519,
+            "r2": 0.9813163458755978
+          },
+          "rmse_rel_diff": 0.0007492647620999104,
+          "fit_ms": 388.57,
+          "pred_ms": 1437.805,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 42.9929,
+          "gate_ok": true
+        },
+        {
+          "data_id": 189,
+          "name": "kin8nm",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.07291384190698323,
+            "r2": 0.9258886028130995
+          },
+          "ref_metrics": {
+            "rmse": 0.07288684489310807,
+            "r2": 0.9259434734922778
+          },
+          "rmse_rel_diff": 0.000370396247975302,
+          "fit_ms": 380.937,
+          "pred_ms": 1262.565,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 41.9197,
+          "gate_ok": true
+        },
+        {
+          "data_id": 287,
+          "name": "wine_quality",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.653682902138405,
+            "r2": 0.4560143993234499
+          },
+          "ref_metrics": {
+            "rmse": 0.653519204999319,
+            "r2": 0.45628681806441806
+          },
+          "rmse_rel_diff": 0.00025048558303053525,
+          "fit_ms": 383.94,
+          "pred_ms": 1298.995,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 42.6884,
+          "gate_ok": true
+        },
+        {
+          "data_id": 183,
+          "name": "abalone",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 1.9224951039361906,
+            "r2": 0.6438462726131444
+          },
+          "ref_metrics": {
+            "rmse": 1.9214671795700105,
+            "r2": 0.6442270290794258
+          },
+          "rmse_rel_diff": 0.0005349684746684957,
+          "fit_ms": 378.895,
+          "pred_ms": 806.515,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 41.9257,
+          "gate_ok": true
+        },
+        {
+          "data_id": 44959,
+          "name": "concrete_compressive_strength",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 3.715365894467379,
+            "r2": 0.946430124803159
+          },
+          "ref_metrics": {
+            "rmse": 3.712555366314206,
+            "r2": 0.9465111411554936
+          },
+          "rmse_rel_diff": 0.0007570333303779098,
+          "fit_ms": 358.175,
+          "pred_ms": 953.666,
+          "kv_cache_bytes": 0,
+          "kv_cache_actual_dtype": "none",
+          "peak_hbm_gib": 39.6719,
+          "gate_ok": true
+        }
+      ]
+    },
+    "bf16_kv_bf16": {
+      "max_auc_abs_diff": 0.001706,
+      "max_rmse_rel_diff": 0.00121,
+      "total_kv_cache_bytes_across_15_datasets": 6421020672,
+      "records": [
+        {
+          "data_id": 31,
+          "name": "credit-g",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714286,
+            "log_loss": 0.4950613647232886
+          },
+          "ref_metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522459922106293
+          },
+          "auc_abs_diff": 1.1102230246251565e-16,
+          "max_proba_abs_diff": 0.007134377956390381,
+          "fit_ms": 678.235,
+          "pred_ms": 482.405,
+          "kv_cache_bytes": 195035136,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 40.2682,
+          "gate_ok": true
+        },
+        {
+          "data_id": 37,
+          "name": "diabetes",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.8136111111111112,
+            "log_loss": 0.5092800908275125
+          },
+          "ref_metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094144676863432
+          },
+          "auc_abs_diff": 0.0002777777777778212,
+          "max_proba_abs_diff": 0.005760699510574341,
+          "fit_ms": 623.897,
+          "pred_ms": 570.541,
+          "kv_cache_bytes": 139591680,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 39.4482,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1464,
+          "name": "blood-transfusion-service-center",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.797270955165692,
+            "log_loss": 0.44702952614118546
+          },
+          "ref_metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7955653021442495,
+            "log_loss": 0.44698609288198715
+          },
+          "auc_abs_diff": 0.0017056530214425436,
+          "max_proba_abs_diff": 0.008599311113357544,
+          "fit_ms": 631.605,
+          "pred_ms": 613.114,
+          "kv_cache_bytes": 130154496,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 39.2947,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1489,
+          "name": "phoneme",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9699367202000875,
+            "log_loss": 0.20739206246949204
+          },
+          "ref_metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.2072701581772115
+          },
+          "auc_abs_diff": 5.016518679379356e-05,
+          "max_proba_abs_diff": 0.028181612491607666,
+          "fit_ms": 1063.893,
+          "pred_ms": 738.489,
+          "kv_cache_bytes": 658243584,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 41.1048,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1067,
+          "name": "kc1",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.8571859513035984,
+            "log_loss": 0.30266176149285823
+          },
+          "ref_metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.856711915535445,
+            "log_loss": 0.3031978044763815
+          },
+          "auc_abs_diff": 0.00047403576815341353,
+          "max_proba_abs_diff": 0.013701975345611572,
+          "fit_ms": 863.915,
+          "pred_ms": 763.748,
+          "kv_cache_bytes": 370999296,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 41.8565,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1494,
+          "name": "qsar-biodeg",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9453219315895373,
+            "log_loss": 0.2749123985475622
+          },
+          "ref_metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.27497392566217393
+          },
+          "auc_abs_diff": 0.00045271629778675937,
+          "max_proba_abs_diff": 0.01282435655593872,
+          "fit_ms": 740.141,
+          "pred_ms": 711.926,
+          "kv_cache_bytes": 236716032,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 41.5755,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40701,
+          "name": "churn",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9621951219512195,
+            "roc_auc": 0.9165727860501567,
+            "log_loss": 0.15178562090095532
+          },
+          "ref_metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.9158748040752351,
+            "log_loss": 0.1517319736774723
+          },
+          "auc_abs_diff": 0.0006979819749215466,
+          "max_proba_abs_diff": 0.029016077518463135,
+          "fit_ms": 1154.522,
+          "pred_ms": 658.573,
+          "kv_cache_bytes": 681836544,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 44.3396,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40984,
+          "name": "segment",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9971795880886791,
+            "log_loss": 0.1385973725527092
+          },
+          "ref_metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9972178494905768,
+            "log_loss": 0.1392014650056269
+          },
+          "auc_abs_diff": 3.826140189766569e-05,
+          "max_proba_abs_diff": 0.04398617148399353,
+          "fit_ms": 836.542,
+          "pred_ms": 757.641,
+          "kv_cache_bytes": 394788864,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 41.56,
+          "gate_ok": true
+        },
+        {
+          "data_id": 46,
+          "name": "splice",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968488469724538,
+            "log_loss": 0.09660431681033693
+          },
+          "ref_metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653247217487444
+          },
+          "auc_abs_diff": 3.2802910274742914e-06,
+          "max_proba_abs_diff": 0.008456170558929443,
+          "fit_ms": 2850.878,
+          "pred_ms": 738.782,
+          "kv_cache_bytes": 602406912,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 49.7696,
+          "gate_ok": true
+        },
+        {
+          "data_id": 54,
+          "name": "vehicle",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8647058823529412,
+            "roc_auc": 0.9745163690476191,
+            "log_loss": 0.25746332388149096
+          },
+          "ref_metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.2540134060646609
+          },
+          "auc_abs_diff": 0.0005918560606059664,
+          "max_proba_abs_diff": 0.024761617183685303,
+          "fit_ms": 638.2,
+          "pred_ms": 470.088,
+          "kv_cache_bytes": 167510016,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 40.1906,
+          "gate_ok": true
+        },
+        {
+          "data_id": 562,
+          "name": "cpu_small",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 2.4051091242254135,
+            "r2": 0.9813470480586552
+          },
+          "ref_metrics": {
+            "rmse": 2.407087678085519,
+            "r2": 0.9813163458755978
+          },
+          "rmse_rel_diff": 0.0008219700005607233,
+          "fit_ms": 1058.338,
+          "pred_ms": 566.55,
+          "kv_cache_bytes": 669253632,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 42.7472,
+          "gate_ok": true
+        },
+        {
+          "data_id": 189,
+          "name": "kin8nm",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.07291549259293466,
+            "r2": 0.9258852471806507
+          },
+          "ref_metrics": {
+            "rmse": 0.07288684489310807,
+            "r2": 0.9259434734922778
+          },
+          "rmse_rel_diff": 0.00039304348910440545,
+          "fit_ms": 1078.751,
+          "pred_ms": 831.506,
+          "kv_cache_bytes": 662962176,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 41.9327,
+          "gate_ok": true
+        },
+        {
+          "data_id": 287,
+          "name": "wine_quality",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.6537418432540696,
+            "r2": 0.4559162949868242
+          },
+          "ref_metrics": {
+            "rmse": 0.653519204999319,
+            "r2": 0.45628681806441806
+          },
+          "rmse_rel_diff": 0.00034067591747488635,
+          "fit_ms": 1262.104,
+          "pred_ms": 802.904,
+          "kv_cache_bytes": 667680768,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 42.5669,
+          "gate_ok": true
+        },
+        {
+          "data_id": 183,
+          "name": "abalone",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 1.9223236825213816,
+            "r2": 0.6439097834681908
+          },
+          "ref_metrics": {
+            "rmse": 1.9214671795700105,
+            "r2": 0.6442270290794258
+          },
+          "rmse_rel_diff": 0.00044575466106211437,
+          "fit_ms": 1081.963,
+          "pred_ms": 221.369,
+          "kv_cache_bytes": 662962176,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 41.9518,
+          "gate_ok": true
+        },
+        {
+          "data_id": 44959,
+          "name": "concrete_compressive_strength",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 3.717048813081255,
+            "r2": 0.9463815836038421
+          },
+          "ref_metrics": {
+            "rmse": 3.712555366314206,
+            "r2": 0.9465111411554936
+          },
+          "rmse_rel_diff": 0.0012103379811705395,
+          "fit_ms": 667.433,
+          "pred_ms": 482.785,
+          "kv_cache_bytes": 180879360,
+          "kv_cache_actual_dtype": "bfloat16",
+          "peak_hbm_gib": 39.9043,
+          "gate_ok": true
+        }
+      ]
+    },
+    "bf16_kv_fp32": {
+      "max_auc_abs_diff": 0.00119,
+      "max_rmse_rel_diff": 0.001214,
+      "total_kv_cache_bytes_across_15_datasets": 12842041344,
+      "records": [
+        {
+          "data_id": 31,
+          "name": "credit-g",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.725,
+            "roc_auc": 0.7848809523809523,
+            "log_loss": 0.49596662279855525
+          },
+          "ref_metrics": {
+            "accuracy": 0.73,
+            "roc_auc": 0.7860714285714285,
+            "log_loss": 0.49522459922106293
+          },
+          "auc_abs_diff": 0.0011904761904761862,
+          "max_proba_abs_diff": 0.00603601336479187,
+          "fit_ms": 603.345,
+          "pred_ms": 114.464,
+          "kv_cache_bytes": 390070272,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 40.6557,
+          "gate_ok": true
+        },
+        {
+          "data_id": 37,
+          "name": "diabetes",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.8146296296296297,
+            "log_loss": 0.5092425430300479
+          },
+          "ref_metrics": {
+            "accuracy": 0.7337662337662337,
+            "roc_auc": 0.813888888888889,
+            "log_loss": 0.5094144676863432
+          },
+          "auc_abs_diff": 0.0007407407407407085,
+          "max_proba_abs_diff": 0.0066588521003723145,
+          "fit_ms": 523.972,
+          "pred_ms": 99.867,
+          "kv_cache_bytes": 279183360,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 39.793,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1464,
+          "name": "blood-transfusion-service-center",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7960526315789475,
+            "log_loss": 0.4471392015330169
+          },
+          "ref_metrics": {
+            "accuracy": 0.7866666666666666,
+            "roc_auc": 0.7955653021442495,
+            "log_loss": 0.44698609288198715
+          },
+          "auc_abs_diff": 0.0004873294346979806,
+          "max_proba_abs_diff": 0.006364762783050537,
+          "fit_ms": 501.312,
+          "pred_ms": 101.38,
+          "kv_cache_bytes": 260308992,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 39.6271,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1489,
+          "name": "phoneme",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698937214685501,
+            "log_loss": 0.2074600620555987
+          },
+          "ref_metrics": {
+            "accuracy": 0.9,
+            "roc_auc": 0.9698865550132937,
+            "log_loss": 0.2072701581772115
+          },
+          "auc_abs_diff": 7.166455256446547e-06,
+          "max_proba_abs_diff": 0.018877416849136353,
+          "fit_ms": 1058.484,
+          "pred_ms": 205.401,
+          "kv_cache_bytes": 1316487168,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.6689,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1067,
+          "name": "kc1",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.8566472742943331,
+            "log_loss": 0.30355977392621547
+          },
+          "ref_metrics": {
+            "accuracy": 0.8767772511848341,
+            "roc_auc": 0.856711915535445,
+            "log_loss": 0.3031978044763815
+          },
+          "auc_abs_diff": 6.464124111194014e-05,
+          "max_proba_abs_diff": 0.006980776786804199,
+          "fit_ms": 837.703,
+          "pred_ms": 152.217,
+          "kv_cache_bytes": 741998592,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 42.3178,
+          "gate_ok": true
+        },
+        {
+          "data_id": 1494,
+          "name": "qsar-biodeg",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9451207243460764,
+            "log_loss": 0.27466472695703026
+          },
+          "ref_metrics": {
+            "accuracy": 0.8815165876777251,
+            "roc_auc": 0.9448692152917505,
+            "log_loss": 0.27497392566217393
+          },
+          "auc_abs_diff": 0.00025150905432591575,
+          "max_proba_abs_diff": 0.00809207558631897,
+          "fit_ms": 704.696,
+          "pred_ms": 108.522,
+          "kv_cache_bytes": 473432064,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.9093,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40701,
+          "name": "churn",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9621951219512195,
+            "roc_auc": 0.9159666438087775,
+            "log_loss": 0.1517091576786671
+          },
+          "ref_metrics": {
+            "accuracy": 0.9609756097560975,
+            "roc_auc": 0.9158748040752351,
+            "log_loss": 0.1517319736774723
+          },
+          "auc_abs_diff": 9.183973354232045e-05,
+          "max_proba_abs_diff": 0.021887123584747314,
+          "fit_ms": 1179.927,
+          "pred_ms": 222.761,
+          "kv_cache_bytes": 1363673088,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 44.8669,
+          "gate_ok": true
+        },
+        {
+          "data_id": 40984,
+          "name": "segment",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9523809523809523,
+            "roc_auc": 0.9971413266867813,
+            "log_loss": 0.1392952034127666
+          },
+          "ref_metrics": {
+            "accuracy": 0.9545454545454546,
+            "roc_auc": 0.9972178494905768,
+            "log_loss": 0.1392014650056269
+          },
+          "auc_abs_diff": 7.65228037954424e-05,
+          "max_proba_abs_diff": 0.019288361072540283,
+          "fit_ms": 776.554,
+          "pred_ms": 152.849,
+          "kv_cache_bytes": 789577728,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 41.943,
+          "gate_ok": true
+        },
+        {
+          "data_id": 46,
+          "name": "splice",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968443748605437,
+            "log_loss": 0.09659409838716525
+          },
+          "ref_metrics": {
+            "accuracy": 0.9623824451410659,
+            "roc_auc": 0.9968455666814263,
+            "log_loss": 0.09653247217487444
+          },
+          "auc_abs_diff": 1.191820882651129e-06,
+          "max_proba_abs_diff": 0.007687687873840332,
+          "fit_ms": 3849.567,
+          "pred_ms": 234.632,
+          "kv_cache_bytes": 1204813824,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 50.2299,
+          "gate_ok": true
+        },
+        {
+          "data_id": 54,
+          "name": "vehicle",
+          "task_type": "classification",
+          "metrics": {
+            "accuracy": 0.8705882352941177,
+            "roc_auc": 0.9747883409992785,
+            "log_loss": 0.25556098982079817
+          },
+          "ref_metrics": {
+            "accuracy": 0.8764705882352941,
+            "roc_auc": 0.975108225108225,
+            "log_loss": 0.2540134060646609
+          },
+          "auc_abs_diff": 0.0003198841089465665,
+          "max_proba_abs_diff": 0.018208950757980347,
+          "fit_ms": 589.843,
+          "pred_ms": 106.337,
+          "kv_cache_bytes": 335020032,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 40.4364,
+          "gate_ok": true
+        },
+        {
+          "data_id": 562,
+          "name": "cpu_small",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 2.4066052865341034,
+            "r2": 0.9813238337073656
+          },
+          "ref_metrics": {
+            "rmse": 2.407087678085519,
+            "r2": 0.9813163458755978
+          },
+          "rmse_rel_diff": 0.00020040464491899446,
+          "fit_ms": 1127.964,
+          "pred_ms": 209.934,
+          "kv_cache_bytes": 1338507264,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 43.2119,
+          "gate_ok": true
+        },
+        {
+          "data_id": 189,
+          "name": "kin8nm",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.07297535981343284,
+            "r2": 0.9257634934735143
+          },
+          "ref_metrics": {
+            "rmse": 0.07288684489310807,
+            "r2": 0.9259434734922778
+          },
+          "rmse_rel_diff": 0.0012144155842468418,
+          "fit_ms": 1124.588,
+          "pred_ms": 209.957,
+          "kv_cache_bytes": 1325924352,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 42.3824,
+          "gate_ok": true
+        },
+        {
+          "data_id": 287,
+          "name": "wine_quality",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 0.6534922009421483,
+            "r2": 0.45633175066437925
+          },
+          "ref_metrics": {
+            "rmse": 0.653519204999319,
+            "r2": 0.45628681806441806
+          },
+          "rmse_rel_diff": 4.132098485265523e-05,
+          "fit_ms": 1157.174,
+          "pred_ms": 212.353,
+          "kv_cache_bytes": 1335361536,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 43.0522,
+          "gate_ok": true
+        },
+        {
+          "data_id": 183,
+          "name": "abalone",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 1.9218752652487197,
+            "r2": 0.6440758932460341
+          },
+          "ref_metrics": {
+            "rmse": 1.9214671795700105,
+            "r2": 0.6442270290794258
+          },
+          "rmse_rel_diff": 0.00021238233108955562,
+          "fit_ms": 1126.985,
+          "pred_ms": 206.143,
+          "kv_cache_bytes": 1325924352,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 42.4205,
+          "gate_ok": true
+        },
+        {
+          "data_id": 44959,
+          "name": "concrete_compressive_strength",
+          "task_type": "regression",
+          "metrics": {
+            "rmse": 3.7138912071633934,
+            "r2": 0.9464726418198592
+          },
+          "ref_metrics": {
+            "rmse": 3.712555366314206,
+            "r2": 0.9465111411554936
+          },
+          "rmse_rel_diff": 0.00035981708483268093,
+          "fit_ms": 565.574,
+          "pred_ms": 93.091,
+          "kv_cache_bytes": 361758720,
+          "kv_cache_actual_dtype": "float32",
+          "peak_hbm_gib": 40.5381,
+          "gate_ok": true
+        }
+      ]
+    }
+  },
+  "all_gates_passed": true,
+  "failures": []
+}

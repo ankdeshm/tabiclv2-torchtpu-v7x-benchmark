@@ -1,0 +1,267 @@
+[Launcher] Reusing verified /tmp/phase1_4_out/graph_breaks_summary.json (total_graph_breaks=0).
+[Launcher] Running submode=compiled_parity cache_dir=/tmp/tabicl_tier3_phase1_4 extra_env={}...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793917153.431383  138812 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793917154.205314  138812 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793917154.207561  138812 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793917155.349658  138812 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793917157.675249  138812 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793917157.675289  138812 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793917158.305784  139708 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_phase1_4
+I0000 00:00:1793917158.305812  139708 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793917158.305817  139708 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793917158.311429  140156 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+[W1105 22:19:22.434064742 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[CompiledParity:fp32_nocache] credit-g                         bkt=(1024,32) new_compiles=1 compile_s=3.96s warm_p50=92.23ms openml_id=31;auc_delta=0.000000;max_proba_diff=0.000002;gate=PASS
+[CompiledParity:fp32_nocache] diabetes                         bkt=(1024,16) new_compiles=1 compile_s=3.29s warm_p50=64.25ms openml_id=37;auc_delta=0.000000;max_proba_diff=0.000002;gate=PASS
+[CompiledParity:fp32_nocache] blood-transfusion-service-center bkt=(1024,16) new_compiles=0 compile_s=0.00s warm_p50=64.15ms openml_id=1464;auc_delta=0.000365;max_proba_diff=0.000001;gate=PASS
+[CompiledParity:fp32_nocache] phoneme                          bkt=(4096,16) new_compiles=1 compile_s=4.02s warm_p50=289.99ms openml_id=1489;auc_delta=0.000000;max_proba_diff=0.000008;gate=PASS
+[CompiledParity:fp32_nocache] kc1                              bkt=(4096,32) new_compiles=1 compile_s=3.73s warm_p50=387.76ms openml_id=1067;auc_delta=0.000065;max_proba_diff=0.000005;gate=PASS
+[CompiledParity:fp32_nocache] qsar-biodeg                      bkt=(2048,64) new_compiles=1 compile_s=3.84s warm_p50=273.71ms openml_id=1494;auc_delta=0.000000;max_proba_diff=0.000005;gate=PASS
+[CompiledParity:fp32_nocache] churn                            bkt=(4096,32) new_compiles=0 compile_s=0.00s warm_p50=389.83ms openml_id=40701;auc_delta=0.000000;max_proba_diff=0.000009;gate=PASS
+[CompiledParity:fp32_nocache] segment                          bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=291.05ms openml_id=40984;auc_delta=0.000044;max_proba_diff=0.000017;gate=PASS
+[CompiledParity:fp32_nocache] splice                           bkt=(4096,64) new_compiles=1 compile_s=3.79s warm_p50=589.16ms openml_id=46;auc_delta=0.000000;max_proba_diff=0.000005;gate=PASS
+[CompiledParity:fp32_nocache] vehicle                          bkt=(1024,32) new_compiles=0 compile_s=0.00s warm_p50=91.78ms openml_id=54;auc_delta=0.000000;max_proba_diff=0.000008;gate=PASS
+[CompiledParity:fp32_nocache] cpu_small                        bkt=(4096,16) new_compiles=1 compile_s=4.03s warm_p50=301.72ms openml_id=562;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_nocache] kin8nm                           bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=300.31ms openml_id=189;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_nocache] wine_quality                     bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=301.16ms openml_id=287;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_nocache] abalone                          bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=301.60ms openml_id=183;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_nocache] concrete_compressive_strength    bkt=(2048,16) new_compiles=1 compile_s=3.38s warm_p50=131.99ms openml_id=44959;rmse_rel=0.000001;gate=PASS
+[CompiledParity:fp32_nocache] SUMMARY: 15/15 PASS | max|dAUC|=0.000365 | max|dRMSE/RMSE|=0.0001%
+[CompiledParity:fp32_kv_fp32] credit-g                         bkt=(1024,32) new_compiles=2 compile_s=5.64s warm_p50=29.68ms openml_id=31;auc_delta=0.000000;max_proba_diff=0.000002;gate=PASS
+[CompiledParity:fp32_kv_fp32] diabetes                         bkt=(1024,16) new_compiles=2 compile_s=5.58s warm_p50=20.34ms openml_id=37;auc_delta=0.000000;max_proba_diff=0.000002;gate=PASS
+[CompiledParity:fp32_kv_fp32] blood-transfusion-service-center bkt=(1024,16) new_compiles=0 compile_s=0.00s warm_p50=19.47ms openml_id=1464;auc_delta=0.000609;max_proba_diff=0.000002;gate=PASS
+[CompiledParity:fp32_kv_fp32] phoneme                          bkt=(4096,16) new_compiles=2 compile_s=6.59s warm_p50=78.45ms openml_id=1489;auc_delta=0.000000;max_proba_diff=0.000009;gate=PASS
+[CompiledParity:fp32_kv_fp32] kc1                              bkt=(2048,32) new_compiles=2 compile_s=5.72s warm_p50=49.46ms openml_id=1067;auc_delta=0.000086;max_proba_diff=0.000007;gate=PASS
+[CompiledParity:fp32_kv_fp32] qsar-biodeg                      bkt=(1024,64) new_compiles=2 compile_s=5.90s warm_p50=41.26ms openml_id=1494;auc_delta=0.000000;max_proba_diff=0.000005;gate=PASS
+[CompiledParity:fp32_kv_fp32] churn                            bkt=(4096,32) new_compiles=2 compile_s=6.69s warm_p50=103.39ms openml_id=40701;auc_delta=0.000000;max_proba_diff=0.000010;gate=PASS
+[CompiledParity:fp32_kv_fp32] segment                          bkt=(2048,16) new_compiles=2 compile_s=5.45s warm_p50=37.83ms openml_id=40984;auc_delta=0.000022;max_proba_diff=0.000024;gate=PASS
+[CompiledParity:fp32_kv_fp32] splice                           bkt=(4096,64) new_compiles=2 compile_s=6.98s warm_p50=152.04ms openml_id=46;auc_delta=0.000000;max_proba_diff=0.000004;gate=PASS
+[CompiledParity:fp32_kv_fp32] vehicle                          bkt=(1024,32) new_compiles=0 compile_s=0.00s warm_p50=27.34ms openml_id=54;auc_delta=0.000000;max_proba_diff=0.000009;gate=PASS
+/usr/local/lib/python3.12/site-packages/torch/_ops.py:916: UserWarning: <TorchTpu/Performance/> TPU is using HIGHEST precision as requested, but performance may be significantly lower. Consider using torch.set_float32_matmul_precision('medium') for better performance. (Triggered internally at csrc/ops/precision_context.cc:70.)
+  return self._op(*args, **kwargs)
+I0000 00:00:1793917261.183348  140156 tier3_compilation_cache.cc:84] Tier-3 compilation cache path for this process: /tmp/tabicl_tier3_phase1_4/8ae752df13e66ac8
+[CompiledParity:fp32_kv_fp32] cpu_small                        bkt=(4096,16) new_compiles=2 compile_s=50.92s warm_p50=93.00ms openml_id=562;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_kv_fp32] kin8nm                           bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=90.99ms openml_id=189;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_kv_fp32] wine_quality                     bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=92.91ms openml_id=287;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_kv_fp32] abalone                          bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=91.03ms openml_id=183;rmse_rel=0.000000;gate=PASS
+[CompiledParity:fp32_kv_fp32] concrete_compressive_strength    bkt=(1024,16) new_compiles=2 compile_s=36.86s warm_p50=24.89ms openml_id=44959;rmse_rel=0.000001;gate=PASS
+[CompiledParity:fp32_kv_fp32] SUMMARY: 15/15 PASS | max|dAUC|=0.000609 | max|dRMSE/RMSE|=0.0001%
+[CompiledParity:bf16_nocache] credit-g                         bkt=(1024,32) new_compiles=1 compile_s=21.85s warm_p50=88.61ms openml_id=31;auc_delta=0.000238;max_proba_diff=0.005702;gate=PASS
+[CompiledParity:bf16_nocache] diabetes                         bkt=(1024,16) new_compiles=1 compile_s=24.21s warm_p50=55.67ms openml_id=37;auc_delta=0.000741;max_proba_diff=0.005975;gate=PASS
+[CompiledParity:bf16_nocache] blood-transfusion-service-center bkt=(1024,16) new_compiles=0 compile_s=0.00s warm_p50=55.54ms openml_id=1464;auc_delta=0.000365;max_proba_diff=0.006318;gate=PASS
+[CompiledParity:bf16_nocache] phoneme                          bkt=(4096,16) new_compiles=1 compile_s=30.25s warm_p50=208.35ms openml_id=1489;auc_delta=0.000039;max_proba_diff=0.031001;gate=PASS
+[CompiledParity:bf16_nocache] kc1                              bkt=(4096,32) new_compiles=1 compile_s=31.56s warm_p50=304.89ms openml_id=1067;auc_delta=0.000539;max_proba_diff=0.021084;gate=PASS
+[CompiledParity:bf16_nocache] qsar-biodeg                      bkt=(2048,64) new_compiles=1 compile_s=24.72s warm_p50=254.47ms openml_id=1494;auc_delta=0.000855;max_proba_diff=0.013971;gate=PASS
+[CompiledParity:bf16_nocache] churn                            bkt=(4096,32) new_compiles=0 compile_s=0.00s warm_p50=306.58ms openml_id=40701;auc_delta=0.001231;max_proba_diff=0.025379;gate=PASS
+[CompiledParity:bf16_nocache] segment                          bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=208.93ms openml_id=40984;auc_delta=0.000027;max_proba_diff=0.016906;gate=PASS
+[CompiledParity:bf16_nocache] splice                           bkt=(4096,64) new_compiles=1 compile_s=25.36s warm_p50=509.08ms openml_id=46;auc_delta=0.000007;max_proba_diff=0.008161;gate=PASS
+[CompiledParity:bf16_nocache] vehicle                          bkt=(1024,32) new_compiles=0 compile_s=0.00s warm_p50=84.30ms openml_id=54;auc_delta=0.000320;max_proba_diff=0.026925;gate=PASS
+[CompiledParity:bf16_nocache] cpu_small                        bkt=(4096,16) new_compiles=1 compile_s=30.32s warm_p50=219.11ms openml_id=562;rmse_rel=0.000524;gate=PASS
+[CompiledParity:bf16_nocache] kin8nm                           bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=216.44ms openml_id=189;rmse_rel=0.000017;gate=PASS
+[CompiledParity:bf16_nocache] wine_quality                     bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=218.58ms openml_id=287;rmse_rel=0.000050;gate=PASS
+[CompiledParity:bf16_nocache] abalone                          bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=216.42ms openml_id=183;rmse_rel=0.000196;gate=PASS
+[CompiledParity:bf16_nocache] concrete_compressive_strength    bkt=(2048,16) new_compiles=1 compile_s=24.98s warm_p50=108.33ms openml_id=44959;rmse_rel=0.000703;gate=PASS
+[CompiledParity:bf16_nocache] SUMMARY: 15/15 PASS | max|dAUC|=0.001231 | max|dRMSE/RMSE|=0.0703%
+[CompiledParity:bf16_kv_bf16] credit-g                         bkt=(1024,32) new_compiles=2 compile_s=37.80s warm_p50=28.99ms openml_id=31;auc_delta=0.000476;max_proba_diff=0.008860;gate=PASS
+[CompiledParity:bf16_kv_bf16] diabetes                         bkt=(1024,16) new_compiles=2 compile_s=38.65s warm_p50=18.32ms openml_id=37;auc_delta=0.000648;max_proba_diff=0.007727;gate=PASS
+[CompiledParity:bf16_kv_bf16] blood-transfusion-service-center bkt=(1024,16) new_compiles=0 compile_s=0.00s warm_p50=17.72ms openml_id=1464;auc_delta=0.000609;max_proba_diff=0.006663;gate=PASS
+[CompiledParity:bf16_kv_bf16] phoneme                          bkt=(4096,16) new_compiles=2 compile_s=48.95s warm_p50=54.41ms openml_id=1489;auc_delta=0.000025;max_proba_diff=0.027237;gate=PASS
+[CompiledParity:bf16_kv_bf16] kc1                              bkt=(2048,32) new_compiles=2 compile_s=40.13s warm_p50=41.96ms openml_id=1067;auc_delta=0.000043;max_proba_diff=0.021084;gate=PASS
+[CompiledParity:bf16_kv_bf16] qsar-biodeg                      bkt=(1024,64) new_compiles=2 compile_s=37.57s warm_p50=42.45ms openml_id=1494;auc_delta=0.000302;max_proba_diff=0.010756;gate=PASS
+[CompiledParity:bf16_kv_bf16] churn                            bkt=(4096,32) new_compiles=2 compile_s=50.90s warm_p50=79.90ms openml_id=40701;auc_delta=0.002125;max_proba_diff=0.023437;gate=PASS
+[CompiledParity:bf16_kv_bf16] segment                          bkt=(2048,16) new_compiles=2 compile_s=42.01s warm_p50=33.71ms openml_id=40984;auc_delta=0.000038;max_proba_diff=0.041361;gate=PASS
+[CompiledParity:bf16_kv_bf16] splice                           bkt=(4096,64) new_compiles=2 compile_s=44.09s warm_p50=127.66ms openml_id=46;auc_delta=0.000019;max_proba_diff=0.008704;gate=PASS
+[CompiledParity:bf16_kv_bf16] vehicle                          bkt=(1024,32) new_compiles=0 compile_s=0.00s warm_p50=25.88ms openml_id=54;auc_delta=0.000320;max_proba_diff=0.020629;gate=PASS
+[CompiledParity:bf16_kv_bf16] cpu_small                        bkt=(4096,16) new_compiles=2 compile_s=48.93s warm_p50=67.11ms openml_id=562;rmse_rel=0.000579;gate=PASS
+[CompiledParity:bf16_kv_bf16] kin8nm                           bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=64.58ms openml_id=189;rmse_rel=0.000522;gate=PASS
+[CompiledParity:bf16_kv_bf16] wine_quality                     bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=67.52ms openml_id=287;rmse_rel=0.000130;gate=PASS
+[CompiledParity:bf16_kv_bf16] abalone                          bkt=(4096,16) new_compiles=0 compile_s=0.00s warm_p50=66.27ms openml_id=183;rmse_rel=0.000241;gate=PASS
+[CompiledParity:bf16_kv_bf16] concrete_compressive_strength    bkt=(1024,16) new_compiles=2 compile_s=38.32s warm_p50=22.58ms openml_id=44959;rmse_rel=0.000099;gate=PASS
+[CompiledParity:bf16_kv_bf16] SUMMARY: 15/15 PASS | max|dAUC|=0.002125 | max|dRMSE/RMSE|=0.0579%
+I0000 00:00:1793918005.397436  138812 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793918005.397462  138812 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=8672
+num_cache_hits=8487 {97.8%}
+num_compilations=50
+peak_compilation_memory_bytes=unknown
+
+[Launcher] Running submode=cache_probe cache_dir=/tmp/tabicl_tier3_persist_test extra_env={}...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793918016.076354  143862 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793918016.854924  143862 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793918016.857357  143862 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793918017.968540  143862 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793918020.322327  143862 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793918020.322361  143862 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793918020.660789  144745 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_persist_test
+I0000 00:00:1793918020.660817  144745 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793918020.660822  144745 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793918020.667642  145193 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793918020.671294  145193 tier3_compilation_cache.cc:84] Tier-3 compilation cache path for this process: /tmp/tabicl_tier3_persist_test/8ae752df13e66ac8
+[W1105 22:33:44.627641464 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[CacheProbe pid=143862] bkt_1024x32_b4: first_call_s=3.8034s warm_p50_ms=39.13ms
+/usr/local/lib/python3.12/site-packages/torch/_ops.py:916: UserWarning: <TorchTpu/Performance/> TPU is using HIGHEST precision as requested, but performance may be significantly lower. Consider using torch.set_float32_matmul_precision('medium') for better performance. (Triggered internally at csrc/ops/precision_context.cc:70.)
+  return self._op(*args, **kwargs)
+[CacheProbe pid=143862] bkt_65536x128_b4_50kx100: first_call_s=105.9114s warm_p50_ms=10560.51ms
+I0000 00:00:1793918163.340625  143862 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793918163.340655  143862 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=893
+num_cache_hits=810 {90.7%}
+num_compilations=81
+peak_compilation_memory_bytes=unknown
+
+[Launcher] Running submode=cache_probe cache_dir=/tmp/tabicl_tier3_persist_test extra_env={}...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793918168.231344  147432 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793918168.992962  147432 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793918168.995361  147432 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793918170.098095  147432 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793918172.402834  147432 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793918172.402869  147432 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793918172.742117  148314 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_persist_test
+I0000 00:00:1793918172.742154  148314 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793918172.742159  148314 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793918172.748482  148762 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+[W1105 22:36:16.720023382 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[CacheProbe pid=147432] bkt_1024x32_b4: first_call_s=3.8148s warm_p50_ms=39.37ms
+[CacheProbe pid=147432] bkt_65536x128_b4_50kx100: first_call_s=13.8170s warm_p50_ms=10562.75ms
+I0000 00:00:1793918223.289610  147432 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793918223.289635  147432 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=880
+num_cache_hits=810 {92.0%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+
+[Launcher] Running submode=attn_bench cache_dir=/tmp/tabicl_tier3_attn_splash extra_env={'TABICL_TPU_SPLASH_MIN_KV': '16384'}...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793918227.727549  148932 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793918228.506661  148932 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793918228.508915  148932 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793918229.591800  148932 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793918231.939402  148932 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793918231.939435  148932 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793918232.280268  149817 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_attn_splash
+I0000 00:00:1793918232.280293  149817 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793918232.280298  149817 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793918232.286334  150281 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793918232.286467  150281 tier3_compilation_cache.cc:84] Tier-3 compilation cache path for this process: /tmp/tabicl_tier3_attn_splash/8ae752df13e66ac8
+/usr/local/lib/python3.12/site-packages/torch/_ops.py:916: UserWarning: <TorchTpu/Performance/> TPU is using HIGHEST precision as requested, but performance may be significantly lower. Consider using torch.set_float32_matmul_precision('medium') for better performance. (Triggered internally at csrc/ops/precision_context.cc:70.)
+  return self._op(*args, **kwargs)
+[W1105 22:37:37.187045442 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[AttnBench:pallas_splash] 16kx100_est8: compile_s=25.72s p50_ms=4076.62ms peak_hbm=27.350 GiB
+[AttnBench:pallas_splash] 50kx100_est8: compile_s=14.02s p50_ms=21127.86ms peak_hbm=49.557 GiB
+I0000 00:00:1793918449.856827  148932 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793918449.856849  148932 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=4165
+num_cache_hits=4057 {97.4%}
+num_compilations=41
+peak_compilation_memory_bytes=unknown
+
+[Launcher] Running submode=attn_bench cache_dir=/tmp/tabicl_tier3_attn_tiled extra_env={'TABICL_TPU_SPLASH_MIN_KV': '99999999'}...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793918454.660291  152032 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793918455.444890  152032 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793918455.447225  152032 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793918456.522718  152032 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793918458.825486  152032 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793918458.825521  152032 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793918459.177882  152915 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_attn_tiled
+I0000 00:00:1793918459.177898  152915 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793918459.177904  152915 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793918459.183274  153363 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+/usr/local/lib/python3.12/site-packages/torch/_ops.py:916: UserWarning: <TorchTpu/Performance/> TPU is using HIGHEST precision as requested, but performance may be significantly lower. Consider using torch.set_float32_matmul_precision('medium') for better performance. (Triggered internally at csrc/ops/precision_context.cc:70.)
+  return self._op(*args, **kwargs)
+I0000 00:00:1793918460.837360  153362 tier3_compilation_cache.cc:84] Tier-3 compilation cache path for this process: /tmp/tabicl_tier3_attn_tiled/8ae752df13e66ac8
+[W1105 22:41:28.477555212 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[AttnBench:tiled_xla_fallback] 16kx100_est8: compile_s=29.11s p50_ms=4247.15ms peak_hbm=27.424 GiB
+[AttnBench:tiled_xla_fallback] 50kx100_est8: compile_s=270.49s p50_ms=23051.35ms peak_hbm=81.007 GiB
+I0000 00:00:1793918951.206736  152032 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793918951.206766  152032 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=4172
+num_cache_hits=4057 {97.2%}
+num_compilations=11
+peak_compilation_memory_bytes=unknown
+
+[Launcher] Running submode=profile_50kx100 cache_dir=/tmp/tabicl_tier3_attn_splash extra_env={'TABICL_TPU_SPLASH_MIN_KV': '16384'}...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793918957.142984  154589 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793918957.911551  154589 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793918957.913949  154589 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793918959.010080  154589 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793918961.344787  154589 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793918961.344823  154589 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+[Profile50Kx100] Compiling & warming up 50Kx100 (n_estimators=8, bf16)...
+I0000 00:00:1793918961.767814  155485 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_attn_splash
+I0000 00:00:1793918961.767847  155485 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793918961.767852  155485 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793918961.774416  155933 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+[W1105 22:49:35.001599351 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[Profile50Kx100] Capturing XProf trace into /tmp/phase1_4_out/profiles_50kx100...
+I0000 00:00:1793919018.066058  154589 profiler_api.cc:152] Starting trace, logdir: /tmp/phase1_4_out/profiles_50kx100
+I0000 00:00:1793919018.066087  154589 profiler_session.cc:171] Profiler session initializing.
+I0000 00:00:1793919018.066089  154589 profiler_session.cc:186] Profiler session started.
+I0000 00:00:1793919039.569698  154589 profiler_session.cc:134] Profiler session collecting data.
+I0000 00:00:1793919042.179763  154589 profiler_api.cc:186] Collected 7 planes.
+I0000 00:00:1793919042.250408  154589 profiler_api.cc:204] Writing 70010122 bytes to /tmp/phase1_4_out/profiles_50kx100/plugins/profile/2026_11_05_22_50_39/gke-tpu-771db71a-cz6l.xplane.pb
+I0000 00:00:1793919042.315824  154589 profiler_session.cc:217] Profiler session tear down.
+Traceback (most recent call last):
+  File "/workspace/scripts/phase1_4_compile_and_profile.py", line 807, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/scripts/phase1_4_compile_and_profile.py", line 687, in main
+    return submode_profile_50kx100(args.arg1, args.arg2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scripts/phase1_4_compile_and_profile.py", line 653, in submode_profile_50kx100
+    prof.step()
+    ^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'step'
+I0000 00:00:1793919043.387561  154589 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793919043.387584  154589 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=1519
+num_cache_hits=1452 {95.5%}
+num_compilations=0
+peak_compilation_memory_bytes=unknown
+

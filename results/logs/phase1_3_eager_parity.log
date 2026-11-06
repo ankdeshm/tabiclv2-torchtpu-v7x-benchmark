@@ -1,0 +1,126 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793911696.327310    5255 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793911697.098637    5255 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793911697.101057    5255 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793911697.859806    5255 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793911700.210220    5255 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793911700.210255    5255 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+I0000 00:00:1793911700.240862    6024 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /workspace/torchtpu_cache
+I0000 00:00:1793911700.240887    6024 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793911700.240893    6024 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793911700.246940    6472 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793911700.247066    6472 tier3_compilation_cache.cc:84] Tier-3 compilation cache path for this process: /workspace/torchtpu_cache/8ae752df13e66ac8
+[W1105 20:48:20.693919500 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[1.3] TorchTPU initialized cleanly: probe.device=tpu:0, accelerator=tpu, device_count=8
+[1.3] Eager warmup complete on tpu:0.
+
+=== [1.3] Running config=fp32_nocache (use_amp=False, kv_cache=False, kv_cache_dtype=None) ===
+/usr/local/lib/python3.12/site-packages/tabicl/_model/layers.py:147: UserWarning: <TorchTpu/Performance/> TPU is using HIGHEST precision as requested, but performance may be significantly lower. Consider using torch.set_float32_matmul_precision('medium') for better performance. (Triggered internally at csrc/ops/precision_context.cc:70.)
+  out = F.linear(src, self.weight, self.bias)
+  [CLS] credit-g               AUC=0.78607 (ref=0.78607, |d|=0.00000) max|dp|=0.00000 fit=403.2ms pred=1955.4ms kv=0.0KiB(none) hbm=10.942GiB [PASS]
+  [CLS] diabetes               AUC=0.81389 (ref=0.81389, |d|=0.00000) max|dp|=0.00000 fit=400.1ms pred=1750.7ms kv=0.0KiB(none) hbm=10.057GiB [PASS]
+  [CLS] blood-transfusion-service-center AUC=0.79605 (ref=0.79557, |d|=0.00049) max|dp|=0.00000 fit=397.3ms pred=1757.9ms kv=0.0KiB(none) hbm=9.893GiB [PASS]
+  [CLS] phoneme                AUC=0.96989 (ref=0.96989, |d|=0.00000) max|dp|=0.00001 fit=437.2ms pred=4267.9ms kv=0.0KiB(none) hbm=37.892GiB [PASS]
+  [CLS] kc1                    AUC=0.85671 (ref=0.85671, |d|=0.00000) max|dp|=0.00001 fit=381.7ms pred=4861.6ms kv=0.0KiB(none) hbm=38.975GiB [PASS]
+  [CLS] qsar-biodeg            AUC=0.94487 (ref=0.94487, |d|=0.00000) max|dp|=0.00001 fit=376.6ms pred=2801.4ms kv=0.0KiB(none) hbm=38.816GiB [PASS]
+  [CLS] churn                  AUC=0.91587 (ref=0.91587, |d|=0.00000) max|dp|=0.00001 fit=398.9ms pred=2898.3ms kv=0.0KiB(none) hbm=43.483GiB [PASS]
+  [CLS] segment                AUC=0.99719 (ref=0.99722, |d|=0.00003) max|dp|=0.00002 fit=364.8ms pred=4760.0ms kv=0.0KiB(none) hbm=40.364GiB [PASS]
+  [CLS] splice                 AUC=0.99685 (ref=0.99685, |d|=0.00000) max|dp|=0.00000 fit=523.2ms pred=9833.8ms kv=0.0KiB(none) hbm=49.968GiB [PASS]
+  [CLS] vehicle                AUC=0.97511 (ref=0.97511, |d|=0.00000) max|dp|=0.00001 fit=392.7ms pred=2243.8ms kv=0.0KiB(none) hbm=38.799GiB [PASS]
+  [REG] cpu_small              RMSE=2.40709 (ref=2.40709, rel=0.000%) R2=0.98132 fit=370.9ms pred=2956.5ms kv=0.0KiB(none) hbm=41.799GiB [PASS]
+  [REG] kin8nm                 RMSE=0.07289 (ref=0.07289, rel=0.000%) R2=0.92594 fit=384.0ms pred=2945.7ms kv=0.0KiB(none) hbm=40.755GiB [PASS]
+  [REG] wine_quality           RMSE=0.65352 (ref=0.65352, rel=0.000%) R2=0.45629 fit=381.0ms pred=3018.4ms kv=0.0KiB(none) hbm=41.614GiB [PASS]
+  [REG] abalone                RMSE=1.92147 (ref=1.92147, rel=0.000%) R2=0.64423 fit=373.6ms pred=949.2ms kv=0.0KiB(none) hbm=40.840GiB [PASS]
+  [REG] concrete_compressive_strength RMSE=3.71256 (ref=3.71256, rel=0.000%) R2=0.94651 fit=368.0ms pred=2323.1ms kv=0.0KiB(none) hbm=38.565GiB [PASS]
+=== [1.3] Summary fp32_nocache: max|dAUC|=0.000487 (tol=0.002), max|dRMSE/RMSE|=0.0001% (tol=1.0%), total_kv_MiB=0.00 ===
+
+=== [1.3] Running config=fp32_kv_fp32 (use_amp=False, kv_cache=True, kv_cache_dtype=fp32) ===
+  [CLS] credit-g               AUC=0.78607 (ref=0.78607, |d|=0.00000) max|dp|=0.00000 fit=2230.1ms pred=1531.9ms kv=380928.0KiB(float32) hbm=39.286GiB [PASS]
+  [CLS] diabetes               AUC=0.81389 (ref=0.81389, |d|=0.00000) max|dp|=0.00000 fit=1927.6ms pred=1633.0ms kv=272640.0KiB(float32) hbm=38.462GiB [PASS]
+  [CLS] blood-transfusion-service-center AUC=0.79557 (ref=0.79557, |d|=0.00000) max|dp|=0.00000 fit=1921.0ms pred=1555.5ms kv=254208.0KiB(float32) hbm=38.332GiB [PASS]
+  [CLS] phoneme                AUC=0.96989 (ref=0.96989, |d|=0.00000) max|dp|=0.00001 fit=4270.4ms pred=3402.4ms kv=1285632.0KiB(float32) hbm=40.409GiB [PASS]
+  [CLS] kc1                    AUC=0.85676 (ref=0.85671, |d|=0.00004) max|dp|=0.00001 fit=3973.7ms pred=2111.9ms kv=724608.0KiB(float32) hbm=41.153GiB [PASS]
+  [CLS] qsar-biodeg            AUC=0.94487 (ref=0.94487, |d|=0.00000) max|dp|=0.00000 fit=2620.1ms pred=2055.7ms kv=462336.0KiB(float32) hbm=40.813GiB [PASS]
+  [CLS] churn                  AUC=0.91587 (ref=0.91587, |d|=0.00000) max|dp|=0.00001 fit=3006.8ms pred=1722.5ms kv=1331712.0KiB(float32) hbm=43.833GiB [PASS]
+  [CLS] segment                AUC=0.99723 (ref=0.99722, |d|=0.00002) max|dp|=0.00002 fit=4024.2ms pred=2075.5ms kv=771072.0KiB(float32) hbm=40.972GiB [PASS]
+  [CLS] splice                 AUC=0.99685 (ref=0.99685, |d|=0.00000) max|dp|=0.00000 fit=4313.4ms pred=3340.4ms kv=1176576.0KiB(float32) hbm=49.269GiB [PASS]
+  [CLS] vehicle                AUC=0.97511 (ref=0.97511, |d|=0.00000) max|dp|=0.00001 fit=2266.5ms pred=1650.0ms kv=327168.0KiB(float32) hbm=39.572GiB [PASS]
+  [REG] cpu_small              RMSE=2.40709 (ref=2.40709, rel=0.000%) R2=0.98132 fit=2937.6ms pred=1512.5ms kv=1307136.0KiB(float32) hbm=42.422GiB [PASS]
+  [REG] kin8nm                 RMSE=0.07289 (ref=0.07289, rel=0.000%) R2=0.92594 fit=3083.7ms pred=1411.0ms kv=1294848.0KiB(float32) hbm=41.640GiB [PASS]
+  [REG] wine_quality           RMSE=0.65352 (ref=0.65352, rel=0.000%) R2=0.45629 fit=3242.1ms pred=1391.6ms kv=1304064.0KiB(float32) hbm=42.284GiB [PASS]
+  [REG] abalone                RMSE=1.92147 (ref=1.92147, rel=0.000%) R2=0.64423 fit=1231.9ms pred=230.3ms kv=1294848.0KiB(float32) hbm=41.682GiB [PASS]
+  [REG] concrete_compressive_strength RMSE=3.71256 (ref=3.71256, rel=0.000%) R2=0.94651 fit=2141.1ms pred=1615.9ms kv=353280.0KiB(float32) hbm=39.838GiB [PASS]
+=== [1.3] Summary fp32_kv_fp32: max|dAUC|=0.000043 (tol=0.002), max|dRMSE/RMSE|=0.0001% (tol=1.0%), total_kv_MiB=12247.12 ===
+
+=== [1.3] Running config=bf16_nocache (use_amp=True, kv_cache=False, kv_cache_dtype=None) ===
+  [CLS] credit-g               AUC=0.75500 (ref=0.78607, |d|=0.03107) max|dp|=0.42513 fit=400.5ms pred=1145.7ms kv=0.0KiB(none) hbm=39.734GiB [FAIL]
+  [CLS] diabetes               AUC=0.81602 (ref=0.81389, |d|=0.00213) max|dp|=0.07836 fit=368.4ms pred=1067.4ms kv=0.0KiB(none) hbm=39.062GiB [PASS]
+  [CLS] blood-transfusion-service-center AUC=0.69518 (ref=0.79557, |d|=0.10039) max|dp|=0.69754 fit=403.4ms pred=1381.6ms kv=0.0KiB(none) hbm=38.912GiB [FAIL]
+  [CLS] phoneme                AUC=0.96895 (ref=0.96989, |d|=0.00093) max|dp|=0.25453 fit=386.4ms pred=2079.5ms kv=0.0KiB(none) hbm=40.320GiB [PASS]
+  [CLS] kc1                    AUC=0.59571 (ref=0.85671, |d|=0.26100) max|dp|=0.87232 fit=412.8ms pred=2272.6ms kv=0.0KiB(none) hbm=41.190GiB [FAIL]
+  [CLS] qsar-biodeg            AUC=0.89256 (ref=0.94487, |d|=0.05231) max|dp|=0.70385 fit=428.1ms pred=1642.5ms kv=0.0KiB(none) hbm=41.038GiB [FAIL]
+  [CLS] churn                  AUC=0.91557 (ref=0.91587, |d|=0.00030) max|dp|=0.14442 fit=425.0ms pred=1827.2ms kv=0.0KiB(none) hbm=43.315GiB [PASS]
+  [CLS] segment                AUC=0.99672 (ref=0.99722, |d|=0.00050) max|dp|=0.69083 fit=409.3ms pred=2196.1ms kv=0.0KiB(none) hbm=41.010GiB [PASS]
+  [CLS] splice                 AUC=0.99693 (ref=0.99685, |d|=0.00009) max|dp|=0.09728 fit=519.7ms pred=3936.4ms kv=0.0KiB(none) hbm=47.857GiB [PASS]
+  [CLS] vehicle                AUC=0.97561 (ref=0.97511, |d|=0.00051) max|dp|=0.11180 fit=365.9ms pred=1596.3ms kv=0.0KiB(none) hbm=39.793GiB [PASS]
+  [REG] cpu_small              RMSE=2.41555 (ref=2.40709, rel=0.352%) R2=0.98118 fit=402.5ms pred=1829.6ms kv=0.0KiB(none) hbm=41.988GiB [PASS]
+  [REG] kin8nm                 RMSE=0.07305 (ref=0.07289, rel=0.221%) R2=0.92562 fit=399.0ms pred=1673.0ms kv=0.0KiB(none) hbm=41.258GiB [PASS]
+  [REG] wine_quality           RMSE=0.65567 (ref=0.65352, rel=0.329%) R2=0.45270 fit=404.6ms pred=1759.0ms kv=0.0KiB(none) hbm=41.844GiB [PASS]
+  [REG] abalone                RMSE=1.92314 (ref=1.92147, rel=0.087%) R2=0.64361 fit=387.5ms pred=685.5ms kv=0.0KiB(none) hbm=41.281GiB [PASS]
+  [REG] concrete_compressive_strength RMSE=3.75308 (ref=3.71256, rel=1.092%) R2=0.94534 fit=376.3ms pred=1156.8ms kv=0.0KiB(none) hbm=39.604GiB [FAIL]
+=== [1.3] Summary bf16_nocache: max|dAUC|=0.261000 (tol=0.005), max|dRMSE/RMSE|=1.0916% (tol=1.0%), total_kv_MiB=0.00 ===
+
+=== [1.3] Running config=bf16_kv_bf16 (use_amp=True, kv_cache=True, kv_cache_dtype=bf16) ===
+  [CLS] credit-g               AUC=0.75470 (ref=0.78607, |d|=0.03137) max|dp|=0.42137 fit=1432.9ms pred=785.9ms kv=190464.0KiB(bfloat16) hbm=40.066GiB [FAIL]
+  [CLS] diabetes               AUC=0.81602 (ref=0.81389, |d|=0.00213) max|dp|=0.07836 fit=1560.3ms pred=903.7ms kv=136320.0KiB(bfloat16) hbm=39.477GiB [PASS]
+  [CLS] blood-transfusion-service-center AUC=0.69493 (ref=0.79557, |d|=0.10063) max|dp|=0.69754 fit=1496.0ms pred=682.7ms kv=127104.0KiB(bfloat16) hbm=39.389GiB [FAIL]
+  [CLS] phoneme                AUC=0.96903 (ref=0.96989, |d|=0.00086) max|dp|=0.25871 fit=3084.1ms pred=2115.3ms kv=642816.0KiB(bfloat16) hbm=40.732GiB [PASS]
+  [CLS] kc1                    AUC=0.59569 (ref=0.85671, |d|=0.26102) max|dp|=0.87232 fit=2765.9ms pred=1237.5ms kv=362304.0KiB(bfloat16) hbm=41.357GiB [FAIL]
+  [CLS] qsar-biodeg            AUC=0.89215 (ref=0.94487, |d|=0.05272) max|dp|=0.70234 fit=1906.5ms pred=851.2ms kv=231168.0KiB(bfloat16) hbm=41.149GiB [FAIL]
+  [CLS] churn                  AUC=0.91572 (ref=0.91587, |d|=0.00015) max|dp|=0.14233 fit=2008.8ms pred=830.2ms kv=665856.0KiB(bfloat16) hbm=43.215GiB [PASS]
+  [CLS] segment                AUC=0.99670 (ref=0.99722, |d|=0.00052) max|dp|=0.69158 fit=2005.5ms pred=1311.4ms kv=385536.0KiB(bfloat16) hbm=41.209GiB [PASS]
+  [CLS] splice                 AUC=0.99691 (ref=0.99685, |d|=0.00007) max|dp|=0.09951 fit=3443.1ms pred=1493.1ms kv=588288.0KiB(bfloat16) hbm=47.145GiB [PASS]
+  [CLS] vehicle                AUC=0.97561 (ref=0.97511, |d|=0.00051) max|dp|=0.11180 fit=1646.9ms pred=770.0ms kv=163584.0KiB(bfloat16) hbm=40.182GiB [PASS]
+  [REG] cpu_small              RMSE=2.41593 (ref=2.40709, rel=0.368%) R2=0.98118 fit=1935.3ms pred=750.3ms kv=653568.0KiB(bfloat16) hbm=42.010GiB [PASS]
+  [REG] kin8nm                 RMSE=0.07300 (ref=0.07289, rel=0.162%) R2=0.92570 fit=1951.1ms pred=741.3ms kv=647424.0KiB(bfloat16) hbm=41.467GiB [PASS]
+  [REG] wine_quality           RMSE=0.65564 (ref=0.65352, rel=0.325%) R2=0.45274 fit=2094.0ms pred=778.9ms kv=652032.0KiB(bfloat16) hbm=41.920GiB [PASS]
+  [REG] abalone                RMSE=1.92287 (ref=1.92147, rel=0.073%) R2=0.64371 fit=982.6ms pred=196.3ms kv=647424.0KiB(bfloat16) hbm=41.509GiB [PASS]
+  [REG] concrete_compressive_strength RMSE=3.75365 (ref=3.71256, rel=1.107%) R2=0.94532 fit=1376.8ms pred=916.3ms kv=176640.0KiB(bfloat16) hbm=40.102GiB [FAIL]
+=== [1.3] Summary bf16_kv_bf16: max|dAUC|=0.261021 (tol=0.005), max|dRMSE/RMSE|=1.1070% (tol=1.0%), total_kv_MiB=6123.56 ===
+
+=== [1.3] Running config=bf16_kv_fp32 (use_amp=True, kv_cache=True, kv_cache_dtype=fp32) ===
+  [CLS] credit-g               AUC=0.78619 (ref=0.78607, |d|=0.00012) max|dp|=0.02025 fit=1515.7ms pred=281.9ms kv=380928.0KiB(float32) hbm=40.983GiB [PASS]
+  [CLS] diabetes               AUC=0.81222 (ref=0.81389, |d|=0.00167) max|dp|=0.06487 fit=1339.8ms pred=279.9ms kv=272640.0KiB(float32) hbm=40.131GiB [PASS]
+  [CLS] blood-transfusion-service-center AUC=0.79471 (ref=0.79557, |d|=0.00085) max|dp|=0.02588 fit=1328.3ms pred=275.4ms kv=254208.0KiB(float32) hbm=39.974GiB [PASS]
+  [CLS] phoneme                AUC=0.96787 (ref=0.96989, |d|=0.00201) max|dp|=0.28370 fit=2809.5ms pred=1698.3ms kv=1285632.0KiB(float32) hbm=42.041GiB [PASS]
+  [CLS] kc1                    AUC=0.83275 (ref=0.85671, |d|=0.02396) max|dp|=0.26161 fit=2524.8ms pred=632.0ms kv=724608.0KiB(float32) hbm=42.670GiB [FAIL]
+  [CLS] qsar-biodeg            AUC=0.94427 (ref=0.94487, |d|=0.00060) max|dp|=0.06227 fit=1784.3ms pred=310.0ms kv=462336.0KiB(float32) hbm=42.328GiB [PASS]
+  [CLS] churn                  AUC=0.91179 (ref=0.91587, |d|=0.00408) max|dp|=0.26001 fit=2195.4ms pred=352.0ms kv=1331712.0KiB(float32) hbm=45.304GiB [PASS]
+  [CLS] segment                AUC=0.99719 (ref=0.99722, |d|=0.00003) max|dp|=0.53968 fit=2581.4ms pred=579.4ms kv=771072.0KiB(float32) hbm=42.394GiB [PASS]
+  [CLS] splice                 AUC=0.99685 (ref=0.99685, |d|=0.00000) max|dp|=0.03253 fit=2858.1ms pred=1000.5ms kv=1176576.0KiB(float32) hbm=50.638GiB [PASS]
+  [CLS] vehicle                AUC=0.97479 (ref=0.97511, |d|=0.00032) max|dp|=0.17565 fit=1482.5ms pred=367.1ms kv=327168.0KiB(float32) hbm=40.873GiB [PASS]
+  [REG] cpu_small              RMSE=2.40630 (ref=2.40709, rel=0.033%) R2=0.98133 fit=2189.0ms pred=348.9ms kv=1307136.0KiB(float32) hbm=43.702GiB [PASS]
+  [REG] kin8nm                 RMSE=0.07320 (ref=0.07289, rel=0.431%) R2=0.92530 fit=2140.4ms pred=325.9ms kv=1294848.0KiB(float32) hbm=42.842GiB [PASS]
+  [REG] wine_quality           RMSE=0.65520 (ref=0.65352, rel=0.257%) R2=0.45348 fit=2250.8ms pred=337.9ms kv=1304064.0KiB(float32) hbm=43.533GiB [PASS]
+  [REG] abalone                RMSE=1.92402 (ref=1.92147, rel=0.133%) R2=0.64328 fit=1085.0ms pred=186.7ms kv=1294848.0KiB(float32) hbm=42.864GiB [PASS]
+  [REG] concrete_compressive_strength RMSE=3.74107 (ref=3.71256, rel=0.768%) R2=0.94569 fit=1356.5ms pred=280.0ms kv=353280.0KiB(float32) hbm=41.020GiB [PASS]
+=== [1.3] Summary bf16_kv_fp32: max|dAUC|=0.023960 (tol=0.005), max|dRMSE/RMSE|=0.7680% (tol=1.0%), total_kv_MiB=12247.12 ===
+
+[1.3] Wrote /workspace/run/results/eager_parity_tpu.csv and /workspace/run/results/eager_parity_tpu.json (all_gates_passed=False)
+[GCS] Uploaded /workspace/run/results/eager_parity_tpu.csv -> gs://YOUR_GCS_BUCKET/tabicl-tpu/20261105-1120/results/eager_parity_tpu.csv
+[GCS] Uploaded /workspace/run/results/eager_parity_tpu.json -> gs://YOUR_GCS_BUCKET/tabicl-tpu/20261105-1120/results/eager_parity_tpu.json
+[1.3][FAIL] Gate failures: ['bf16_nocache:credit-g: |AUC_tpu - AUC_cpu|=0.031071 > 0.005', 'bf16_nocache:blood-transfusion-service-center: |AUC_tpu - AUC_cpu|=0.100390 > 0.005', 'bf16_nocache:kc1: |AUC_tpu - AUC_cpu|=0.261000 > 0.005', 'bf16_nocache:qsar-biodeg: |AUC_tpu - AUC_cpu|=0.052314 > 0.005', 'bf16_nocache:concrete_compressive_strength: |RMSE_tpu/RMSE_cpu - 1|=0.010916 > 0.01', 'bf16_kv_bf16:credit-g: |AUC_tpu - AUC_cpu|=0.031369 > 0.005', 'bf16_kv_bf16:blood-transfusion-service-center: |AUC_tpu - AUC_cpu|=0.100634 > 0.005', 'bf16_kv_bf16:kc1: |AUC_tpu - AUC_cpu|=0.261021 > 0.005', 'bf16_kv_bf16:qsar-biodeg: |AUC_tpu - AUC_cpu|=0.052716 > 0.005', 'bf16_kv_bf16:concrete_compressive_strength: |RMSE_tpu/RMSE_cpu - 1|=0.011070 > 0.01', 'bf16_kv_fp32:kc1: |AUC_tpu - AUC_cpu|=0.023960 > 0.005']
+I0000 00:00:1793911948.788126    5255 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793911948.788176    5255 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=216932
+num_cache_hits=208694 {96.2%}
+num_compilations=8238
+peak_compilation_memory_bytes=unknown
+
