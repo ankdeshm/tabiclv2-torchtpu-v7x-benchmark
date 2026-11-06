@@ -64,9 +64,9 @@ def run_phase2_worker(out_json: str, out_csv: str, out_summary: str, start_idx: 
         ("dp16_headline_50kx100_paper", 45000, 5000, 100, 2, 8, False, 20),
         ("dp16_headline_50kx100_paper_kv", 45000, 5000, 100, 2, 8, True, 20),
         ("dp16_50kx100_te1k_est1", 50000, 1000, 100, 2, 1, False, 20),
-        ("dp16_50kx100_te1k_est8", 50000, 1000, 100, 2, 8, False, 20),
-        ("dp16_50kx100_te1k_est32", 50000, 1000, 100, 2, 32, False, 10),
-        ("dp16_large_100kx100", 100000, 1000, 100, 2, 8, False, 10),
+        ("dp16_50kx100_te1k_est8", 50000, 1000, 100, 2, 8, False, 10),
+        ("dp16_50kx100_te1k_est32", 50000, 1000, 100, 2, 32, False, 5),
+        ("dp16_large_100kx100", 100000, 1000, 100, 2, 8, False, 5),
         ("dp16_large_100kx100_kv", 100000, 1000, 100, 2, 8, True, 15),
         ("dp16_xlarge_250kx100", 250000, 1000, 100, 2, 8, False, 5),
         ("dp16_xlarge_250kx100_kv", 250000, 1000, 100, 2, 8, True, 10),
@@ -121,7 +121,7 @@ def run_phase2_worker(out_json: str, out_csv: str, out_summary: str, start_idx: 
                 Path(out_json).write_text(json.dumps(rows, indent=2))
             continue
 
-        torch.manual_seed(1000 * (rank + 1) + n_tr + n_feat)
+        torch.manual_seed(2000 * (rank + 1) + n_tr + n_feat)
         if n_est == 1:
             view_batches = [1]
         elif t_tot >= 32768 and n_est > 8:
@@ -130,6 +130,7 @@ def run_phase2_worker(out_json: str, out_csv: str, out_summary: str, start_idx: 
             view_batches = [n_est // 2, n_est - (n_est // 2)]
         ev0 = len(runner.compile_events)
         torch.accelerator.reset_peak_memory_stats(dev)
+        n_warm = 1 if (not kv_cache and t_tot >= 65536) else 3
 
         if not kv_cache:
             views = [
@@ -142,7 +143,7 @@ def run_phase2_worker(out_json: str, out_csv: str, out_summary: str, start_idx: 
             for Xv, yv in views:
                 runner.forward_nocache_bucketed(Xv, yv, num_classes=n_cls, return_logits=True)
             comp_s = sum(float(e["first_call_s"]) for e in runner.compile_events[ev0:])
-            for _ in range(3):
+            for _ in range(n_warm):
                 for Xv, yv in views:
                     runner.forward_nocache_bucketed(Xv, yv, num_classes=n_cls, return_logits=True)
 

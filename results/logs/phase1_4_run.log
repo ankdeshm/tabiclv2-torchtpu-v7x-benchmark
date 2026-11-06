@@ -246,7 +246,7 @@ I0000 00:00:1793919018.066087  154589 profiler_session.cc:171] Profiler session 
 I0000 00:00:1793919018.066089  154589 profiler_session.cc:186] Profiler session started.
 I0000 00:00:1793919039.569698  154589 profiler_session.cc:134] Profiler session collecting data.
 I0000 00:00:1793919042.179763  154589 profiler_api.cc:186] Collected 7 planes.
-I0000 00:00:1793919042.250408  154589 profiler_api.cc:204] Writing 70010122 bytes to /tmp/phase1_4_out/profiles_50kx100/plugins/profile/2026_11_05_22_50_39/gke-tpu-771db71a-cz6l.xplane.pb
+I0000 00:00:1793919042.250408  154589 profiler_api.cc:204] Writing 70010122 bytes to /tmp/phase1_4_out/profiles_50kx100/plugins/profile/2026_11_05_22_50_39/tpu-v7x-host.xplane.pb
 I0000 00:00:1793919042.315824  154589 profiler_session.cc:217] Profiler session tear down.
 Traceback (most recent call last):
   File "/workspace/scripts/phase1_4_compile_and_profile.py", line 807, in <module>

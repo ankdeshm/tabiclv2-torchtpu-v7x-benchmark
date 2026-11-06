@@ -627,6 +627,7 @@ def run_eight_device_worker(out_json: str, start_idx: int = 1, seed_json: str = 
         ev0 = len(runner.compile_events)
         torch.accelerator.reset_peak_memory_stats(dev)
 
+        n_warm = 1 if (not kv_cache and t_tot >= 65536) else 3
         if not kv_cache:
             views = [
                 (
@@ -638,7 +639,7 @@ def run_eight_device_worker(out_json: str, start_idx: int = 1, seed_json: str = 
             for Xv, yv in views:
                 runner.forward_nocache_bucketed(Xv, yv, num_classes=n_cls, return_logits=True)
             comp_s = sum(float(e["first_call_s"]) for e in runner.compile_events[ev0:])
-            for _ in range(3):
+            for _ in range(n_warm):
                 for Xv, yv in views:
                     runner.forward_nocache_bucketed(Xv, yv, num_classes=n_cls, return_logits=True)
 
@@ -788,13 +789,14 @@ def main() -> int:
         return rc1
 
     # 2. Run 8-TensorCore single-host data-parallel sweep (`torchrun --nnodes=1 --nproc_per_node=8`)
-    env_8 = build_single_host_env(port=18080, cache_dir=cache_root, slicebuilder_base_port=39520, nproc=8)
+    # Use ports < 32768 (outside Linux net.ipv4.ip_local_port_range) to avoid ephemeral port collisions.
+    env_8 = build_single_host_env(port=18080, cache_dir=cache_root, slicebuilder_base_port=19520, nproc=8)
     cmd_8 = [
         "torchrun",
         "--nnodes=1",
         "--nproc_per_node=8",
         "--rdzv_backend=c10d",
-        "--rdzv_endpoint=127.0.0.1:29521",
+        "--rdzv_endpoint=127.0.0.1:19501",
         str(Path(__file__).resolve()),
         "--worker-mode",
         "dp8",
