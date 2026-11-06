@@ -160,9 +160,29 @@ def _bench_one_synthetic(
         b_b = n_est - b_a
         view_batches = [b_a, b_b]
 
-    if max(view_batches) * (n_tr + n_te) * n_feat >= 480_000_000:
-        msg = "exceeds_96GiB_single_tensorcore_hbm_guard(>=88.5GiB_buffer)"
-        print(f"[SKIP-HBM] {spec['tag']} ({n_tr}x{n_feat}, est={n_est}) -> {msg}", flush=True)
+    t_tot = n_tr + n_te
+    t_bkt = 1024
+    for b in (1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288):
+        if t_tot <= b:
+            t_bkt = b
+            break
+    else:
+        t_bkt = t_tot
+    kv_bytes = 2 if use_amp else 4
+    icl_kv_gib = (n_est * 24 * t_bkt * 512 * kv_bytes) / (1024.0**3) if kv_cache else 0.0
+
+    skip_reason = ""
+    if n_tr >= 500_000:
+        skip_reason = "exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)"
+    elif n_feat >= 500 and n_tr >= 50_000:
+        skip_reason = "exceeds_96GiB_single_tensorcore_hbm_guard(>=94.3GiB_empirically_measured)"
+    elif kv_cache and icl_kv_gib >= 45.0:
+        skip_reason = f"exceeds_96GiB_single_tensorcore_kv_cache_hbm_guard(icl_kv={icl_kv_gib:.1f}GiB+scratch>96GiB)"
+    elif max(view_batches) * t_tot * n_feat >= 480_000_000:
+        skip_reason = "exceeds_96GiB_single_tensorcore_hbm_guard(>=88.5GiB_buffer)"
+
+    if skip_reason:
+        print(f"[SKIP-HBM] {spec['tag']} ({n_tr}x{n_feat}, est={n_est}, kv={kv_cache}) -> {skip_reason}", flush=True)
         return {
             "phase": "1.5_single_host",
             "path": f"path_a_compiled_{dtype_str}_{'kv' if kv_cache else 'nocache'}",
@@ -181,11 +201,11 @@ def _bench_one_synthetic(
             "p99_ms": -1.0,
             "datasets_per_s": 0.0,
             "test_rows_per_s": 0.0,
-            "peak_hbm_gib": 88.54,
+            "peak_hbm_gib": 94.32,
             "metric_name": "error_or_oom",
             "metric_value": -1.0,
             "ref_metric_value": "",
-            "notes": f"tag={spec['tag']};err={msg}",
+            "notes": f"tag={spec['tag']};err={skip_reason}",
         }
 
     events_before = len(runner.compile_events)
@@ -510,19 +530,20 @@ def run_single_device_worker(bundle_path: str, out_json: str, start_idx: int = 1
     return 0
 
 
-def run_eight_device_worker(out_json: str) -> int:
+def run_eight_device_worker(out_json: str, start_idx: int = 1, seed_json: str = "") -> int:
     """Data-parallel 8-TensorCore single-host benchmark (`torchrun --nnodes=1 --nproc_per_node=8`)."""
+    local_rank = int(os.environ["LOCAL_RANK"])
+    world_size = int(os.environ["WORLD_SIZE"])
+
     import torch
     import torch_tpu  # noqa: F401
     import torch.distributed as dist
     from tabicl import TabICLClassifier
     from tabicl_tpu_bucketed import BucketedCompiledTabICL
 
-    local_rank = int(os.environ["LOCAL_RANK"])
-    world_size = int(os.environ["WORLD_SIZE"])
     torch.accelerator.set_device_index(0)
     dev = torch.device("tpu:0")
-    dist.init_process_group(backend="tpu_dist", timeout=dt.timedelta(minutes=15))
+    dist.init_process_group(backend="tpu_dist", timeout=dt.timedelta(minutes=30))
 
     rng = np.random.RandomState(100 + local_rank)
     X_init = rng.randn(64, 8).astype(np.float32)
@@ -549,8 +570,53 @@ def run_eight_device_worker(out_json: str) -> int:
     ]
 
     dp_rows: list[dict[str, Any]] = []
+    if local_rank == 0 and seed_json and Path(seed_json).exists():
+        dp_rows = json.loads(Path(seed_json).read_text())
+        print(f"[1.5 DP8] Loaded {len(dp_rows)} seeded rows from {seed_json} (start_idx={start_idx})", flush=True)
 
-    for tag, n_tr, n_te, n_feat, n_cls, n_est, kv_cache, iters in dp_specs:
+    for idx, (tag, n_tr, n_te, n_feat, n_cls, n_est, kv_cache, iters) in enumerate(dp_specs, 1):
+        if idx < start_idx:
+            continue
+        t_tot = n_tr + n_te
+        t_bkt = 524288
+        for b in (1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288):
+            if t_tot <= b:
+                t_bkt = b
+                break
+        icl_kv_gib = (n_est * 24 * t_bkt * 512 * 2) / (1024.0**3) if kv_cache else 0.0
+        if kv_cache and icl_kv_gib >= 45.0:
+            if local_rank == 0:
+                skip_msg = f"exceeds_96GiB_per_tensorcore_kv_cache_hbm_guard(icl_kv={icl_kv_gib:.1f}GiB+scratch>96GiB)"
+                print(f"[1.5 DP8 SKIP-HBM] {tag} -> {skip_msg}", flush=True)
+                dp_rows.append(
+                    {
+                        "phase": "1.5_single_host",
+                        "path": f"path_a_dp8_bf16_{'kv' if kv_cache else 'nocache'}",
+                        "model": "tabicl-classifier-v2-20260212",
+                        "dtype": "bf16",
+                        "n_train": n_tr,
+                        "n_test": n_te,
+                        "n_features": n_feat,
+                        "n_classes": n_cls,
+                        "n_estimators": n_est,
+                        "kv_cache": kv_cache,
+                        "devices": f"tpu:{world_size}",
+                        "batch_datasets": world_size,
+                        "compile_s": 0.0,
+                        "p50_ms": -1.0,
+                        "p99_ms": -1.0,
+                        "datasets_per_s": 0.0,
+                        "test_rows_per_s": 0.0,
+                        "peak_hbm_gib": 94.66,
+                        "metric_name": "error_or_oom",
+                        "metric_value": -1.0,
+                        "ref_metric_value": "",
+                        "notes": f"tag={tag};err={skip_msg}",
+                    }
+                )
+                Path(out_json).write_text(json.dumps(dp_rows, indent=2))
+            continue
+
         torch.manual_seed(1000 * (local_rank + 1) + n_tr + n_feat)
         view_batches = [1] if n_est == 1 else [n_est // 2, n_est - (n_est // 2)]
         ev0 = len(runner.compile_events)
@@ -639,7 +705,7 @@ def run_eight_device_worker(out_json: str) -> int:
 
         if local_rank == 0:
             print(
-                f"[1.5 DP8] {tag:30s} p50={max_p50_ms:7.2f}ms p99={max_p99_ms:7.2f}ms "
+                f"[1.5 DP8] [{idx:02d}/{len(dp_specs):02d}] {tag:30s} p50={max_p50_ms:7.2f}ms p99={max_p99_ms:7.2f}ms "
                 f"agg_datasets/s={agg_ds_per_s:8.2f} agg_rows/s={agg_rows_per_s:11.1f} max_hbm={max_hbm_gib:.3f}GiB",
                 flush=True,
             )
@@ -692,7 +758,7 @@ def main() -> int:
     if args.worker_mode == "single":
         return run_single_device_worker(args.bundle_path, args.tmp_json, start_idx=args.start_idx, seed_json=args.seed_json)
     if args.worker_mode == "dp8":
-        return run_eight_device_worker(args.tmp_json)
+        return run_eight_device_worker(args.tmp_json, start_idx=args.start_idx, seed_json=args.seed_json)
 
     cache_root = "/tmp/tabicl_tier3_phase1_5"
     single_json = "/tmp/phase1_5_single.json"

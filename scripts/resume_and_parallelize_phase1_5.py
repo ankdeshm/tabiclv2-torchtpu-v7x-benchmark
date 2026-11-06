@@ -97,23 +97,43 @@ def main() -> int:
             env=env,
         )
 
-    pathlib.Path("/tmp/tabicl_tier3_phase1_5_dp8").mkdir(parents=True, exist_ok=True)
-    env = build_single_host_env(port=18080, cache_dir="/tmp/tabicl_tier3_phase1_5_dp8", slicebuilder_base_port=39520, nproc=8)
-    return subprocess.call(
-        [
-            "torchrun",
-            "--nnodes=1",
-            "--nproc_per_node=8",
-            "--rdzv_backend=c10d",
-            "--rdzv_endpoint=127.0.0.1:29521",
-            str(SCRIPT_DIR / "phase1_5_bench_single_host.py"),
-            "--worker-mode",
-            "dp8",
-            "--tmp-json",
-            "/tmp/phase1_5_dp8.json",
-        ],
-        env=env,
-    )
+    seed_dp8 = pathlib.Path("/tmp/phase1_5_dp8_seed.json")
+    existing_dp8 = pathlib.Path("/tmp/phase1_5_dp8.json")
+    start_dp8 = 1
+    if existing_dp8.exists():
+        rows_existing = json.loads(existing_dp8.read_text())
+        if rows_existing:
+            seed_dp8.write_text(json.dumps(rows_existing, indent=2))
+            start_dp8 = len(rows_existing) + 1
+            print(f"[DP8 Resume] Seeded {len(rows_existing)} rows -> starting at idx={start_dp8}", flush=True)
+
+    shutil_mod = __import__("shutil")
+    shutil_mod.rmtree("/dev/shm/torch_tpu_cache", ignore_errors=True)
+    env = build_single_host_env(port=18080, cache_dir=None, slicebuilder_base_port=39520, nproc=8)
+    # Must be set in parent env BEFORE torchrun spawns Python children because torch_tpu .pth
+    # autoloads at interpreter init and otherwise enables shared /dev/shm/torch_tpu_cache/default when WORLD_SIZE>1!
+    env["TORCH_TPU_TIER2_COMPILATION_CACHE"] = "disabled"
+    env["TORCH_TPU_INTERNAL_TIER2_COMPILATION_CACHE"] = "disabled"
+    env.pop("TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT", None)
+    env.pop("TORCH_TPU_INTERNAL_TIER3_COMPILATION_CACHE_ROOT", None)
+    env.pop("TORCH_TPU_CACHE_DIR", None)
+    cmd = [
+        "torchrun",
+        "--nnodes=1",
+        "--nproc_per_node=8",
+        "--rdzv_backend=c10d",
+        "--rdzv_endpoint=127.0.0.1:29521",
+        str(SCRIPT_DIR / "phase1_5_bench_single_host.py"),
+        "--worker-mode",
+        "dp8",
+        "--start-idx",
+        str(start_dp8),
+        "--tmp-json",
+        "/tmp/phase1_5_dp8.json",
+    ]
+    if start_dp8 > 1:
+        cmd.extend(["--seed-json", str(seed_dp8)])
+    return subprocess.call(cmd, env=env)
 
 
 if __name__ == "__main__":
