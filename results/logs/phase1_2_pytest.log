@@ -1,0 +1,47 @@
+sss...............ssssssss.s.sss..........................ssssssssssssss [ 12%]
+ssss...............................................sss.sss.sss.sssssssss [ 24%]
+ssssss.......sss.sss.sss....................s........................... [ 36%]
+........................s............................sssssssssssssssssss [ 48%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 60%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 72%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 84%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss.sss [ 96%]
+..sss.sss.sss.sss....                                                    [100%]
+=============================== warnings summary ===============================
+tests/test_numpy_inputs.py::test_tabicl_supports_nans[estimator0]
+  /usr/local/lib/python3.12/site-packages/tabicl/_sklearn/classifier.py:637: UserWarning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (Triggered internally at ./csrc/common/env_vars.h:405.)
+    outputs.append(out.float().cpu().numpy())
+
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLClassifier(device='cpu',n_estimators=2)-check_supervised_y_no_nan]
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLClassifier(device='cpu',n_estimators=2)-check_supervised_y_no_nan]
+  /usr/local/lib/python3.12/site-packages/sklearn/utils/_array_api.py:399: RuntimeWarning: invalid value encountered in cast
+    return x.astype(dtype, copy=copy, casting=casting)
+
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLRegressor(device='cpu',n_estimators=2)-check_complex_data]
+  /usr/local/lib/python3.12/site-packages/tabicl/_sklearn/regressor.py:392: ComplexWarning: Casting complex values to real discards the imaginary part
+    y = np.asarray(y, dtype=np.float32)
+
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLRegressor(device='cpu',n_estimators=2)-check_complex_data]
+  /usr/local/lib/python3.12/site-packages/tabicl/_sklearn/preprocessing.py:117: ComplexWarning: Casting complex values to real discards the imaginary part
+    X_arr.astype(np.float64)
+
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLRegressor(device='cpu',n_estimators=2)-check_supervised_y_no_nan]
+  /usr/local/lib/python3.12/site-packages/sklearn/utils/extmath.py:1101: RuntimeWarning: invalid value encountered in divide
+    updated_mean = (last_sum + new_sum) / updated_sample_count
+
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLRegressor(device='cpu',n_estimators=2)-check_supervised_y_no_nan]
+  /usr/local/lib/python3.12/site-packages/sklearn/utils/extmath.py:1106: RuntimeWarning: invalid value encountered in divide
+    T = new_sum / new_sample_count
+
+tests/test_sklearn.py::test_sklearn_compatible_estimator[TabICLRegressor(device='cpu',n_estimators=2)-check_supervised_y_no_nan]
+  /usr/local/lib/python3.12/site-packages/sklearn/utils/extmath.py:1126: RuntimeWarning: invalid value encountered in divide
+    new_unnormalized_variance -= correction**2 / new_sample_count
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+211 passed, 386 skipped, 8 warnings in 125.01s (0:02:05)
+I0000 00:00:1793911826.404212  413613 compilation_cache.cc:356] Compilation cache evicted.
+I0000 00:00:1793911826.404260  413613 compilation_cache.cc:203] CompilationCache final stats: num_cache_reqs=14848
+num_cache_hits=13549 {91.2%}
+num_compilations=1299
+peak_compilation_memory_bytes=unknown
+

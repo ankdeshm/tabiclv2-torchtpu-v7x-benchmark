@@ -1,0 +1,38 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793908967.895708      57 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793908968.705617      57 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793908968.708000      57 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+[1.1] Downloading/warming TabICLv2 Classifier & Regressor checkpoints on CPU (fp32)...
+INFO: You are downloading 'tabicl-classifier-v2-20260212.ckpt', the latest best-performing version, used in our TabICLv2 paper.
+
+Checkpoint 'tabicl-classifier-v2-20260212.ckpt' not cached.
+ Downloading from Hugging Face Hub (jingang/TabICL).
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Checkpoint 'tabicl-regressor-v2-20260212.ckpt' not cached.
+ Downloading from Hugging Face Hub (jingang/TabICL).
+
+[1.1] CPU fp32 warmup complete.
+[1.1][CLS 01/10] id=31 (credit-g): train=800 test=200 feat=20 classes=2 AUC=0.78607 ACC=0.73000 LL=0.49522 time=774.1ms
+[1.1][CLS 02/10] id=37 (diabetes): train=614 test=154 feat=8 classes=2 AUC=0.81389 ACC=0.73377 LL=0.50941 time=573.6ms
+[1.1][CLS 03/10] id=1464 (blood-transfusion-service-center): train=598 test=150 feat=4 classes=2 AUC=0.79557 ACC=0.78667 LL=0.44699 time=526.8ms
+[1.1][CLS 04/10] id=1489 (phoneme): train=3276 test=820 feat=5 classes=2 AUC=0.96989 ACC=0.90000 LL=0.20727 time=1838.9ms
+[1.1][CLS 05/10] id=1067 (kc1): train=1687 test=422 feat=21 classes=2 AUC=0.85671 ACC=0.87678 LL=0.30320 time=1407.1ms
+[1.1][CLS 06/10] id=1494 (qsar-biodeg): train=844 test=211 feat=41 classes=2 AUC=0.94487 ACC=0.88152 LL=0.27497 time=1079.4ms
+[1.1][CLS 07/10] id=40701 (churn): train=3276 test=820 feat=20 classes=2 AUC=0.91587 ACC=0.96098 LL=0.15173 time=2601.2ms
+[1.1][CLS 08/10] id=40984 (segment): train=1848 test=462 feat=16 classes=7 AUC=0.99722 ACC=0.95455 LL=0.13920 time=1329.8ms
+[1.1][CLS 09/10] id=46 (splice): train=2552 test=638 feat=60 classes=3 AUC=0.99685 ACC=0.96238 LL=0.09653 time=3591.1ms
+[1.1][CLS 10/10] id=54 (vehicle): train=676 test=170 feat=18 classes=4 AUC=0.97511 ACC=0.87647 LL=0.25401 time=703.4ms
+[1.1][REG 01/05] id=562 (cpu_small): train=3276 test=820 feat=12 RMSE=2.40709 R2=0.98132 time=2142.7ms
+[1.1][REG 02/05] id=189 (kin8nm): train=3276 test=820 feat=8 RMSE=0.07289 R2=0.92594 time=1971.3ms
+[1.1][REG 03/05] id=287 (wine_quality): train=3276 test=820 feat=11 RMSE=0.65352 R2=0.45629 time=2255.4ms
+[1.1][REG 04/05] id=183 (abalone): train=3276 test=820 feat=8 RMSE=1.92147 R2=0.64423 time=1949.4ms
+[1.1][REG 05/05] id=44959 (concrete_compressive_strength): train=824 test=206 feat=8 RMSE=3.71256 R2=0.94651 time=649.8ms
+[1.1] Saved /workspace/run/results/ref_cpu.csv, /workspace/run/results/ref_cpu_summary.json, and /workspace/run/results/ref_cpu_bundle.pt
+[GCS] Uploaded /workspace/run/results/ref_cpu.csv -> gs://YOUR_GCS_BUCKET/tabicl-tpu/20261105-1120/results/ref_cpu.csv
+[GCS] Uploaded /workspace/run/results/ref_cpu_summary.json -> gs://YOUR_GCS_BUCKET/tabicl-tpu/20261105-1120/results/ref_cpu_summary.json
+[GCS] Uploaded /workspace/run/results/ref_cpu_bundle.pt -> gs://YOUR_GCS_BUCKET/tabicl-tpu/20261105-1120/results/ref_cpu_bundle.pt
