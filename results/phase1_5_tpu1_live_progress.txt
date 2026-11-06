@@ -1,36 +1,64 @@
-[1.5 Orchestrator] Starting Part A: 1-TensorCore (`tpu:1`) sweep...
-[1.5 SingleDevice] Benchmarking 94 synthetic configurations on tpu:0...
-[001/094] headline_paper_50k_total     tr= 45000 te= 5000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=21130.21ms p99=21138.03ms rows/s=     236.6 hbm=49.443GiB
-[002/094] headline_paper_50k_total_k10 tr= 45000 te= 5000 f=100 cls=10 est= 8 kv=False bf16 -> p50=21083.56ms p99=21090.12ms rows/s=     237.2 hbm=49.443GiB
-[003/094] headline_paper_50k_total     tr= 45000 te= 5000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50= 2321.47ms p99= 2325.24ms rows/s=    2153.8 hbm=64.094GiB
-[004/094] headline_paper_50k_total_k10 tr= 45000 te= 5000 f=100 cls=10 est= 8 kv=True  bf16 -> p50= 2333.60ms p99= 2336.05ms rows/s=    2142.6 hbm=64.094GiB
-[005/094] grid_ntrain_nfeat            tr=  1000 te= 1000 f= 10 cls= 2 est= 8 kv=False bf16 -> p50=   97.88ms p99=   98.38ms rows/s=   10216.3 hbm=36.746GiB
-[006/094] grid_ntrain_nfeat            tr=  1000 te= 1000 f= 10 cls= 2 est= 8 kv=True  bf16 -> p50=   44.75ms p99=   49.51ms rows/s=   22347.4 hbm=37.464GiB
-[007/094] grid_ntrain_nfeat            tr=  1000 te= 1000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=  459.55ms p99=  462.89ms rows/s=    2176.0 hbm=37.112GiB
-[008/094] grid_ntrain_nfeat            tr=  1000 te= 1000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=  190.46ms p99=  191.48ms rows/s=    5250.6 hbm=38.001GiB
-[009/094] grid_ntrain_nfeat            tr=  1000 te= 1000 f=500 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=37.380GiB
-[010/094] grid_ntrain_nfeat            tr=  1000 te= 1000 f=500 cls= 2 est= 8 kv=True  bf16 -> p50= 1074.63ms p99= 1076.26ms rows/s=     930.5 hbm=89.256GiB
-[011/094] grid_ntrain_nfeat            tr= 10000 te= 1000 f= 10 cls= 2 est= 8 kv=False bf16 -> p50= 1042.51ms p99= 1047.86ms rows/s=     959.2 hbm=88.151GiB
-[012/094] grid_ntrain_nfeat            tr= 10000 te= 1000 f= 10 cls= 2 est= 8 kv=True  bf16 -> p50=   69.98ms p99=   71.42ms rows/s=   14289.0 hbm=34.909GiB
-[013/094] grid_ntrain_nfeat            tr= 10000 te= 1000 f=100 cls= 2 est= 8 kv=False bf16 -> p50= 3970.84ms p99= 3973.57ms rows/s=     251.8 hbm=36.788GiB
-[014/094] grid_ntrain_nfeat            tr= 10000 te= 1000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=  217.18ms p99=  217.62ms rows/s=    4604.4 hbm=35.471GiB
-[015/094] grid_ntrain_nfeat            tr= 10000 te= 1000 f=500 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=38.990GiB
-[016/094] grid_ntrain_nfeat            tr= 10000 te= 1000 f=500 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=39.689GiB
-[017/094] grid_ntrain_nfeat            tr= 50000 te= 1000 f= 10 cls= 2 est= 8 kv=False bf16 -> p50= 9137.35ms p99= 9138.00ms rows/s=     109.4 hbm=31.815GiB
-[018/094] grid_ntrain_nfeat            tr= 50000 te= 1000 f= 10 cls= 2 est= 8 kv=True  bf16 -> p50=  189.49ms p99=  190.02ms rows/s=    5277.3 hbm=55.677GiB
-[019/094] grid_ntrain_nfeat            tr= 50000 te= 1000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=21085.70ms p99=21088.57ms rows/s=      47.4 hbm=50.709GiB
-[020/094] grid_ntrain_nfeat            tr= 50000 te= 1000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=  347.03ms p99=  349.51ms rows/s=    2881.6 hbm=65.004GiB
-[021/094] grid_ntrain_nfeat            tr= 50000 te= 1000 f=500 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.317GiB
-[022/094] grid_ntrain_nfeat            tr= 50000 te= 1000 f=500 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.552GiB
-[023/094] grid_ntrain_nfeat            tr=100000 te= 1000 f= 10 cls= 2 est= 8 kv=False bf16 -> p50=32470.13ms p99=32471.01ms rows/s=      30.8 hbm=43.288GiB
-[024/094] grid_ntrain_nfeat            tr=100000 te= 1000 f= 10 cls= 2 est= 8 kv=True  bf16 -> p50=  336.16ms p99=  336.62ms rows/s=    2974.8 hbm=61.759GiB
-[025/094] grid_ntrain_nfeat            tr=100000 te= 1000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=53488.44ms p99=53490.51ms rows/s=      18.7 hbm=56.664GiB
-[026/094] grid_ntrain_nfeat            tr=100000 te= 1000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=  488.98ms p99=  489.87ms rows/s=    2045.1 hbm=64.601GiB
-[027/094] grid_ntrain_nfeat            tr=100000 te= 1000 f=500 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.281GiB
-[028/094] grid_ntrain_nfeat            tr=100000 te= 1000 f=500 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.643GiB
-[029/094] grid_ntrain_nfeat            tr=250000 te= 1000 f= 10 cls= 2 est= 8 kv=False bf16 -> p50=116079.10ms p99=116080.88ms rows/s=       8.6 hbm=49.003GiB
-[030/094] grid_ntrain_nfeat            tr=250000 te= 1000 f= 10 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.369GiB
-[031/094] grid_ntrain_nfeat            tr=250000 te= 1000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=158169.97ms p99=158176.56ms rows/s=       6.3 hbm=61.514GiB
-[032/094] grid_ntrain_nfeat            tr=250000 te= 1000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.659GiB
-[033/094] grid_ntrain_nfeat            tr=250000 te= 1000 f=500 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.293GiB
-[034/094] grid_ntrain_nfeat            tr=250000 te= 1000 f=500 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=92.639GiB
+Salvaged 34 rows -> /tmp/phase1_5_seed_1_34.json
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793932281.792064 1666496 pjrt_api.cc:119] GetPjrtApi was found for TPU at /usr/local/lib/python3.12/site-packages/libtpu/libtpu.so
+I0000 00:00:1793932282.559808 1666496 device_rt.cc:166] PjRt runtime initialization deferred for tpu
+Successfully renamed PrivateUse1 backend to 'tpu'. Device: device(type='tpu')
+Registered Python module for 'tpu'.
+Device type: tpu, Device index: default
+Initializing TPU distributed runtime
+I0000 00:00:1793932282.562145 1666496 libtpu_version.cc:63] Setting libtpu version to: 0.0.50
+I0000 00:00:1793932283.591765 1666496 pjrt_api.cc:168] The PJRT plugin has PJRT API version 0.116. The framework PJRT API version is 0.116.
+I0000 00:00:1793932286.563755 1666496 pjrt_c_api_client.cc:187] PjRtCApiClient created.
+W0000 00:00:1793932286.563805 1666496 pjrt_state.cc:313] Only using 1 device out of all the 8 addressable devices.
+[1.5 SingleDevice] Loaded 34 seeded rows from /tmp/phase1_5_seed_1_34.json (start_idx=35)
+[1.5 SingleDevice] Benchmarking 94 synthetic configurations on tpu:0 (from idx=35)...
+[SKIP-HBM] grid_ntrain_nfeat (500000x10, est=8, kv=False) -> exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)
+[035/094] grid_ntrain_nfeat            tr=500000 te= 1000 f= 10 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[SKIP-HBM] grid_ntrain_nfeat (500000x10, est=8, kv=True) -> exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)
+[036/094] grid_ntrain_nfeat            tr=500000 te= 1000 f= 10 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[SKIP-HBM] grid_ntrain_nfeat (500000x100, est=8, kv=False) -> exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)
+[037/094] grid_ntrain_nfeat            tr=500000 te= 1000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[SKIP-HBM] grid_ntrain_nfeat (500000x100, est=8, kv=True) -> exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)
+[038/094] grid_ntrain_nfeat            tr=500000 te= 1000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[SKIP-HBM] grid_ntrain_nfeat (500000x500, est=8, kv=False) -> exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)
+[039/094] grid_ntrain_nfeat            tr=500000 te= 1000 f=500 cls= 2 est= 8 kv=False bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[SKIP-HBM] grid_ntrain_nfeat (500000x500, est=8, kv=True) -> exceeds_single_tensorcore_262k_seq_compile_and_96GiB_hbm_envelope(T_bkt=524288)
+[040/094] grid_ntrain_nfeat            tr=500000 te= 1000 f=500 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+I0000 00:00:1793932287.489975 1667392 compilation_cache_utils.cc:218] Tier-3 compilation cache root directory: /tmp/tabicl_tier3_phase1_5
+I0000 00:00:1793932287.490004 1667392 tier2_compilation_cache.cc:72] Tier-2 compilation cache is enabled with name 'default' because tier-3 is enabled.
+I0000 00:00:1793932287.490009 1667392 tier3_compilation_cache.cc:57] Backup compilation for tier-3 cache read is enabled by default.
+I0000 00:00:1793932287.495920 1667840 compilation_cache_utils.cc:99] Tier-2 cache uses TorchTPU binary fingerprint: 8ae752df13e66ac8
+  based on TorchTPU binary version 5 and PjRt version:
+TFRT TPU7x
+Built on Oct 7 2026 00:47:01 (1791359221) cl/994787025
+C API version: 0.116
+I0000 00:00:1793932287.501914 1667840 tier3_compilation_cache.cc:84] Tier-3 compilation cache path for this process: /tmp/tabicl_tier3_phase1_5/8ae752df13e66ac8
+[W1106 02:31:31.756873627 env_vars.h:405] Warning: <TorchTpu/ApiStage/ExperimentalApi/> the TORCH_TPU_TIER3_COMPILATION_CACHE_ROOT environment variable is an experimental feature and may change or be removed without notice. (function operator())
+[041/094] grid_ntest_10k               tr=  1000 te=10000 f=100 cls= 2 est= 8 kv=False bf16 -> p50= 3959.39ms p99= 3960.96ms rows/s=    2525.6 hbm=27.449GiB
+/usr/local/lib/python3.12/site-packages/torch/_ops.py:916: UserWarning: <TorchTpu/Performance/> TPU is using HIGHEST precision as requested, but performance may be significantly lower. Consider using torch.set_float32_matmul_precision('medium') for better performance. (Triggered internally at csrc/ops/precision_context.cc:70.)
+  return self._op(*args, **kwargs)
+[042/094] grid_ntest_10k               tr=  1000 te=10000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50= 2936.59ms p99= 2939.81ms rows/s=    3405.3 hbm=41.477GiB
+[043/094] grid_ntest_10k               tr= 10000 te=10000 f=100 cls= 2 est= 8 kv=False bf16 -> p50= 8948.15ms p99= 8950.56ms rows/s=    1117.5 hbm=48.184GiB
+[044/094] grid_ntest_10k               tr= 10000 te=10000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50= 3361.75ms p99= 3366.21ms rows/s=    2974.6 hbm=61.500GiB
+[045/094] grid_ntest_10k               tr= 50000 te=10000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=21101.73ms p99=21104.40ms rows/s=     473.9 hbm=54.742GiB
+[046/094] grid_ntest_10k               tr= 50000 te=10000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50= 4558.79ms p99= 4560.17ms rows/s=    2193.6 hbm=69.513GiB
+[047/094] grid_ntest_10k               tr=100000 te=10000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=53538.59ms p99=53542.40ms rows/s=     186.8 hbm=63.004GiB
+[048/094] grid_ntest_10k               tr=100000 te=10000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50= 6208.55ms p99= 6211.29ms rows/s=    1610.7 hbm=93.873GiB
+[049/094] grid_ntest_10k               tr=250000 te=10000 f=100 cls= 2 est= 8 kv=False bf16 -> p50=158353.94ms p99=158362.94ms rows/s=      63.1 hbm=65.837GiB
+[SKIP-HBM] grid_ntest_10k (250000x100, est=8, kv=True) -> exceeds_96GiB_single_tensorcore_kv_cache_hbm_guard(icl_kv=48.0GiB+scratch>96GiB)
+[050/094] grid_ntest_10k               tr=250000 te=10000 f=100 cls= 2 est= 8 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[051/094] grid_nest                    tr=  1000 te= 1000 f=100 cls= 2 est= 1 kv=False bf16 -> p50=   60.47ms p99=   60.99ms rows/s=   16537.9 hbm=40.356GiB
+[052/094] grid_nest                    tr=  1000 te= 1000 f=100 cls= 2 est= 1 kv=True  bf16 -> p50=   27.44ms p99=   28.04ms rows/s=   36444.3 hbm=40.582GiB
+[053/094] grid_nest                    tr=  1000 te= 1000 f=100 cls= 2 est=32 kv=False bf16 -> p50= 1822.41ms p99= 1824.59ms rows/s=     548.7 hbm=65.111GiB
+[054/094] grid_nest                    tr=  1000 te= 1000 f=100 cls= 2 est=32 kv=True  bf16 -> p50=  744.51ms p99=  745.93ms rows/s=    1343.2 hbm=68.007GiB
+[055/094] grid_nest                    tr= 10000 te= 1000 f=100 cls= 2 est= 1 kv=False bf16 -> p50=  497.26ms p99=  498.07ms rows/s=    2011.0 hbm=65.478GiB
+[056/094] grid_nest                    tr= 10000 te= 1000 f=100 cls= 2 est= 1 kv=True  bf16 -> p50=   31.62ms p99=   32.07ms rows/s=   31627.6 hbm=66.597GiB
+[057/094] grid_nest                    tr= 10000 te= 1000 f=100 cls= 2 est=32 kv=False bf16 -> p50=15955.97ms p99=15969.08ms rows/s=      62.7 hbm=75.760GiB
+[058/094] grid_nest                    tr= 10000 te= 1000 f=100 cls= 2 est=32 kv=True  bf16 -> p50=  858.04ms p99=  859.68ms rows/s=    1165.5 hbm=64.108GiB
+[059/094] grid_nest                    tr= 50000 te= 1000 f=100 cls= 2 est= 1 kv=False bf16 -> p50= 2654.73ms p99= 2656.12ms rows/s=     376.7 hbm=47.862GiB
+[060/094] grid_nest                    tr= 50000 te= 1000 f=100 cls= 2 est= 1 kv=True  bf16 -> p50=   42.34ms p99=   42.79ms rows/s=   23618.8 hbm=40.243GiB
+[061/094] grid_nest                    tr= 50000 te= 1000 f=100 cls= 2 est=32 kv=False bf16 -> p50=84237.34ms p99=84241.29ms rows/s=      11.9 hbm=61.380GiB
+[SKIP-HBM] grid_nest (50000x100, est=32, kv=True) -> exceeds_96GiB_single_tensorcore_kv_cache_hbm_guard(icl_kv=48.0GiB+scratch>96GiB)
+[062/094] grid_nest                    tr= 50000 te= 1000 f=100 cls= 2 est=32 kv=True  bf16 -> p50=   -1.00ms p99=   -1.00ms rows/s=       0.0 hbm=94.320GiB
+[063/094] grid_nest                    tr=100000 te= 1000 f=100 cls= 2 est= 1 kv=False bf16 -> p50= 6715.65ms p99= 6718.58ms rows/s=     148.9 hbm=53.633GiB
+[064/094] grid_nest                    tr=100000 te= 1000 f=100 cls= 2 est= 1 kv=True  bf16 -> p50=   56.41ms p99=   56.56ms rows/s=   17728.8 hbm=46.114GiB
