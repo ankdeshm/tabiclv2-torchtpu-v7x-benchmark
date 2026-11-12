@@ -1,0 +1,69 @@
+apiVersion: jobset.x-k8s.io/v1alpha2
+kind: JobSet
+metadata:
+  name: tabicl-v7x-smoke
+  namespace: default
+spec:
+  network:
+    enableDNSHostnames: true
+    publishNotReadyAddresses: true
+  replicatedJobs:
+  - name: worker
+    replicas: 1
+    template:
+      spec:
+        parallelism: 2
+        completions: 2
+        completionMode: Indexed
+        backoffLimit: 1
+        template:
+          metadata:
+            labels:
+              app: tabicl-v7x-smoke
+            annotations:
+              cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+          spec:
+            serviceAccountName: default
+            hostNetwork: true
+            dnsPolicy: ClusterFirstWithHostNet
+            restartPolicy: Never
+            nodeSelector:
+              cloud.google.com/gke-nodepool: YOUR_TPU_V7X_NODEPOOL
+              cloud.google.com/gke-tpu-accelerator: tpu7x
+              cloud.google.com/gke-tpu-topology: 2x2x2
+            tolerations:
+            - key: "google.com/tpu"
+              operator: "Exists"
+              effect: "NoSchedule"
+            - key: "cloud.google.com/gke-queued"
+              operator: "Exists"
+              effect: "NoSchedule"
+            containers:
+            - name: smoke
+              image: us-central1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/torchtpu/tabicl-torchtpu:v0.2.0-tabicl2.2.0
+              imagePullPolicy: IfNotPresent
+              command: ["python3", "/scripts/smoke_test_multihost.py"]
+              args:
+              - --bucket=YOUR_GCS_BUCKET
+              - --run-prefix=tabicl-tpu-v7x/smoke
+              - --master-dns=tabicl-v7x-smoke-worker-0-0.tabicl-v7x-smoke.default.svc.cluster.local
+              env:
+              - name: PJRT_DEVICE
+                value: "TPU"
+              resources:
+                requests:
+                  google.com/tpu: "4"
+                limits:
+                  google.com/tpu: "4"
+              volumeMounts:
+              - name: smoke-script
+                mountPath: /scripts
+              - name: dshm
+                mountPath: /dev/shm
+            volumes:
+            - name: smoke-script
+              configMap:
+                name: tabicl-v7x-scripts
+            - name: dshm
+              emptyDir:
+                medium: Memory
